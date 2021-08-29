@@ -171,7 +171,7 @@ Iterator<Attribute>          Element.attibuteIterator(); //获取所有属性对
 
 Element.getText(); //获取当前标签的文本
 
-Element.elementText("标签名") //获取当前标签的指定名称的子标签的文本内容
+Element.elementText("标签名")  //获取当前标签的指定名称的子标签的文本内容
 ```
 
 # xml中文乱码问题
