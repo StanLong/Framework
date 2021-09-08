@@ -1,7 +1,6 @@
 package com.stanlong.xml;
 
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 
 import java.io.File;
@@ -11,9 +10,11 @@ public class Dom4j {
         try{
             // 创建一个解析器对象
             SAXReader reader = new SAXReader();
-            Document doc = reader.read(new File("contact.xml"));
+            String path = "D:\\StanLong\\git_repository\\Framework\\XML\\xml\\Dom4jProject\\src\\resources\\contact.xml";
+            Document doc = reader.read(new File(path));
             System.out.println(doc);
-        }catch (DocumentException e){
+
+        }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException();
         }
