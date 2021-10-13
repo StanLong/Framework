@@ -21,6 +21,8 @@ object SourceTest {
         // 创建执行环境
         val env = StreamExecutionEnvironment.getExecutionEnvironment
 
+        // env.setParallelism(1) // 全局并行度设置成1，解决乱序问题
+
         // 1. 从集合中读取数据源
         // val dataList = List(
         //    SensorReading("sensor_1", 1547718199, 35.8),
