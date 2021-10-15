@@ -153,10 +153,6 @@ kafka数据源测试截图
 
 ## Transform
 
-### 滚动聚合算子
-
-这些算子可以针对KeyedStream的每一个支流做聚合
-
 ```scala
 package com.stanlong.api
 
@@ -169,17 +165,22 @@ import org.apache.flink.streaming.api.scala._
  * max()
  * minBy()
  * maxBy()
+ * 这些算子可以针对KeyedStream的每一个支流做聚合
+ *
+ * Reduce
+ *
+ * 分流操作 Split 和 Select
+ * DataStream -> SplitStream: 根据某些特征把一个DataStream拆分成两个或者多个DataStream
  */
 object TransformTest {
     def main(args: Array[String]): Unit = {
         val env = StreamExecutionEnvironment.getExecutionEnvironment
         env.setParallelism(1)
+        // 0. 读取数据
         val inputPath = "D:\\StanLong\\git_repository\\Framework\\01Flink\\Flink\\src\\main\\resources\\sensor.txt"
         val inputStream = env.readTextFile(inputPath)
 
-
-
-        // 先转换成样例类类型
+        // 1. 先转换成样例类类型
         val dataStream = inputStream.map(
             data => {
                 val arr = data.split(",")
@@ -187,27 +188,43 @@ object TransformTest {
             }
         )
 
-        // 根据id分组聚合, 输出每个传感器当前最小值
+        // 2. 根据id分组聚合, 输出每个传感器当前最小值
         val aggStream = dataStream.keyBy("id").minBy("temperature")
+        // aggStream.print()
 
-        // 输出当前最小的温度值，以及最新的时间戳，要用reduce
+        // 3. 输出当前最小的温度值，以及最新的时间戳，要用reduce
         val resultStream = dataStream.keyBy("id")
           .reduce(
               (curState, newData) => {
                   SensorReading(curState.id, newData.timestamp, curState.temperature.min(newData.temperature))
               }
           )
+        // resultStream.print()
 
-        // aggStream.print()
+        // 4. 多流转换操作
+        // 4.1 分流， 将传感器温度数据分为低温，高温两条流
+        val splitStream = dataStream.split(
+            data => {
+                if(data.temperature > 30.0) Seq("high") else Seq("low")
+            }
+        )
+        val highTemperature = splitStream.select("high")
+        val lowTemperature = splitStream.select("low")
+        val allTemperature = splitStream.select("high", "low")
 
-        resultStream.print()
+        highTemperature.print("high")
+        lowTemperature.print("low")
+        allTemperature.print("all")
+
 
         env.execute("transform test")
 
     }
+
 }
 ```
 
-### reduce
+### Split 和 Select
 
-代码见上
+![](./doc/05.png)
+
