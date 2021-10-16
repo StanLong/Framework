@@ -165,12 +165,14 @@ import org.apache.flink.streaming.api.scala._
  * max()
  * minBy()
  * maxBy()
- * 这些算子可以针对KeyedStream的每一个支流做聚合
  *
  * Reduce
  *
  * 分流操作 Split 和 Select
- * DataStream -> SplitStream: 根据某些特征把一个DataStream拆分成两个或者多个DataStream
+ *
+ * 合流操作 connect 和 union
+ * connect 不要求流的数据类型一致，而 union 要流的数据类型一致才可以合并
+ *
  */
 object TransformTest {
     def main(args: Array[String]): Unit = {
@@ -212,15 +214,32 @@ object TransformTest {
         val lowTemperature = splitStream.select("low")
         val allTemperature = splitStream.select("high", "low")
 
-        highTemperature.print("high")
-        lowTemperature.print("low")
-        allTemperature.print("all")
+        // highTemperature.print("high")
+        // lowTemperature.print("low")
+        // allTemperature.print("all")
+
+        // 4.2 合流  connect
+        // 连接两个保持他们类型的数据流，两个数据流被 Connect 之后，只是被放在了同一个流中，
+        // 内部依然保持各自的数据和形式不发生任何变化，两个相互独立
+        val waringStream = highTemperature.map( data => (data.id, data.temperature))
+        val connectedStreams = waringStream.connect(lowTemperature)
+
+        // 用coMap对数据进行分别处理
+        val coMapResultStream = connectedStreams.map(
+            waringData => (waringData._1, waringData._2, "warning"),
+            lowTempData => (lowTempData.id, "healthy")
+        )
+        // coMapResultStream.print("coMap")
+
+        // 4.3 合流 union, 要求流的数据类型要一致
+        val unionStream = highTemperature.union(lowTemperature)
+
+        unionStream.print("union")
 
 
         env.execute("transform test")
 
     }
-
 }
 ```
 
