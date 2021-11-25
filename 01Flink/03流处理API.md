@@ -247,3 +247,6 @@ object TransformTest {
 
 ![](./doc/05.png)
 
+## 支持的数据类型
+
+Flink 支持所有的Java和Scala基础数据类型
