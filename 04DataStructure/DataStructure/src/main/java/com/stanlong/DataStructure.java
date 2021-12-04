@@ -1,5 +1,10 @@
 package com.stanlong;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+
 /**
  * 稀疏数组
  * 特点：n行三列
@@ -17,7 +22,7 @@ package com.stanlong;
  */
 public class DataStructure {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         // 创建一个二维数组
         int[][] chessArr1 = new int[11][11];
 
@@ -72,6 +77,40 @@ public class DataStructure {
             System.out.printf("%d\t%d\t%d\t\n", sparseArr[i][0],sparseArr[i][1],sparseArr[i][2]);
         }
 
+        //-----------------------------------------------------------------
+        // 课后练习： 将稀疏数组保存到文件 map.data
+        File out_file = new File("map.data");
+        FileWriter fw = new FileWriter(out_file);
+        for(int i=0; i< sparseArr.length; i++){
+            fw.write(sparseArr[i][0] + "\t");
+            fw.write(sparseArr[i][1] + "\t");
+            fw.write(sparseArr[i][2] + "\t");
+            fw.write("\r\n");
+        }
+        fw.close();
+        //-----------------------------------------------------------------
+
+        //-----------------------------------------------------------------
+        // 课后练习： 读取 map.data 还原成稀疏数组
+        File in_file = new File("map.data");
+        FileReader fr = new FileReader(in_file);
+        BufferedReader br = new BufferedReader(fr);
+        int lineCount = 0;
+        int[][] sparseArr2 = new int[sum+1][3];
+        String line = null;
+        while ((line = br.readLine()) != null){
+            String[] lines = line.split("\t");
+            sparseArr2[lineCount][0] = Integer.parseInt(lines[0]);
+            sparseArr2[lineCount][1] = Integer.parseInt(lines[1]);
+            sparseArr2[lineCount][2] = Integer.parseInt(lines[2]);
+            lineCount = lineCount + 1;
+        }
+        System.out.println("----------------从文件还原的稀疏数组----------------");
+        for(int i=0; i< sparseArr2.length; i++){
+            System.out.printf("%d\t%d\t%d\t\n", sparseArr2[i][0],sparseArr2[i][1],sparseArr2[i][2]);
+        }
+        //-----------------------------------------------------------------
+
         // 稀疏数组还原成二维数组
         // 1. 根据稀疏数组首行还原二维数组的大小
         int[][] chessArr2 = new int[sparseArr[0][0]][sparseArr[0][1]];
@@ -89,11 +128,6 @@ public class DataStructure {
             }
             System.out.println();
         }
-
-
-
-
-
 
     }
 
