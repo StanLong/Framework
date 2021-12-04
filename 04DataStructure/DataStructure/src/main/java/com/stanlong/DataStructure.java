@@ -1,0 +1,100 @@
+package com.stanlong;
+
+/**
+ * 稀疏数组
+ * 特点：n行三列
+ * 首行记录二维数组的原始信息（多少行，多少列，多少个有效值）
+ * 剩下 n-1 行记录有效值在原二维数组的位置
+ *
+ * 二维数组转稀疏数组的思路
+ * 1. 遍历原始的二维数组，得到数据的有效个数 sum
+ * 2. 根据sum就可以创建稀疏数组 sparseArr int[sum+1][3]
+ * 3. 将二维数组的有效数据存入到稀疏数组中
+ *
+ * 稀疏数组转原始二维数组的思路
+ * 1. 先读取稀疏数组的第一行，根据第一行的数据创建原始的二维数组
+ * 2. 在读取稀疏数组后几行的数据并赋给原始的二维数组
+ */
+public class DataStructure {
+
+    public static void main(String[] args) {
+        // 创建一个二维数组
+        int[][] chessArr1 = new int[11][11];
+
+        // 给二维数组赋有效值
+        chessArr1[1][2] = 1;
+        chessArr1[1][5] = 2;
+        chessArr1[2][3] = 1;
+
+        // 遍历打印二维数组
+        System.out.println("----------------原始二维数组----------------");
+        for(int[] row : chessArr1){
+            for(int data : row){
+                System.out.printf("%d\t", data);
+            }
+            System.out.println();
+        }
+
+        // 将二维数组转成稀疏数组
+        // 1. 先遍历二维数组，得到有效值
+        int sum = 0;
+        for(int i=0; i<11; i++){
+            for(int j=0; j<11; j++){
+                if(chessArr1[i][j] != 0){
+                    sum = sum +1;
+                }
+            }
+        }
+
+        // 2. 创建稀疏数组
+        int[][] sparseArr = new int[sum+1][3];
+        // 首行保存二维数组的基本信息
+        sparseArr[0][0] = 11;
+        sparseArr[0][1] = 11;
+        sparseArr[0][2] = sum;
+
+        // 将二维数组有效值的行列信息保存到稀疏数组
+        int count=0; // 用于记录第几个非0数据
+        for(int i=0; i<11; i++){
+            for(int j=0; j<11; j++){
+                if(chessArr1[i][j] != 0){
+                    count = count + 1;
+                    sparseArr[count][0] = i;
+                    sparseArr[count][1] = j;
+                    sparseArr[count][2] = chessArr1[i][j];
+                }
+            }
+        }
+
+        // 遍历打印稀疏数组
+        System.out.println("----------------稀疏数组----------------");
+        for(int i=0; i< sparseArr.length; i++){
+            System.out.printf("%d\t%d\t%d\t\n", sparseArr[i][0],sparseArr[i][1],sparseArr[i][2]);
+        }
+
+        // 稀疏数组还原成二维数组
+        // 1. 根据稀疏数组首行还原二维数组的大小
+        int[][] chessArr2 = new int[sparseArr[0][0]][sparseArr[0][1]];
+
+        // 2. 遍历稀疏数组，把有效值还原到二维数组里,
+        for(int i=1; i< sparseArr.length; i++){ // i 从 1开始
+            chessArr2[sparseArr[i][0]][sparseArr[i][1]] = sparseArr[i][2];
+        }
+
+        // 打印还原后的二维数组
+        System.out.println("----------------还原后的二维数组----------------");
+        for(int[] row : chessArr2){
+            for(int data : row){
+                System.out.printf("%d\t", data);
+            }
+            System.out.println();
+        }
+
+
+
+
+
+
+    }
+
+}
