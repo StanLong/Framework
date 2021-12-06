@@ -1,134 +1,155 @@
 package com.stanlong;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.util.Scanner;
 
 /**
- * 稀疏数组
- * 特点：n行三列
- * 首行记录二维数组的原始信息（多少行，多少列，多少个有效值）
- * 剩下 n-1 行记录有效值在原二维数组的位置
+ * 单向队列
+ * 特点：先进先出
  *
- * 二维数组转稀疏数组的思路
- * 1. 遍历原始的二维数组，得到数据的有效个数 sum
- * 2. 根据sum就可以创建稀疏数组 sparseArr int[sum+1][3]
- * 3. 将二维数组的有效数据存入到稀疏数组中
- *
- * 稀疏数组转原始二维数组的思路
- * 1. 先读取稀疏数组的第一行，根据第一行的数据创建原始的二维数组
- * 2. 在读取稀疏数组后几行的数据并赋给原始的二维数组
+ * 数组模拟队列思路：
+ * 1. maxSize 队列最大长度
+ * 2. front 对列头指针
+ * 3. rare 队列尾指针
  */
 public class DataStructure {
 
     public static void main(String[] args) throws Exception{
-        // 创建一个二维数组
-        int[][] chessArr1 = new int[11][11];
+        ArrQueue aq = new ArrQueue(3);
+        Scanner scanner = new Scanner(System.in);
+        boolean loop = true;
+        char key = ' ';
+        while (loop){
+            System.out.println("s(show)显示队列");
+            System.out.println("a(add)添加数据到队列");
+            System.out.println("h(head)查看队首元素");
+            System.out.println("r(rear)查看队尾元素");
+            System.out.println("g(get)取出队首元素");
+            System.out.println("e(exit)退出");
+            System.out.print("输入选择: ");
+            key = scanner.next().charAt(0);
 
-        // 给二维数组赋有效值
-        chessArr1[1][2] = 1;
-        chessArr1[1][5] = 2;
-        chessArr1[2][3] = 1;
+            switch (key){
+                case 's':
+                    try {
+                        aq.showQueue();
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 'a':
+                    try{
+                        System.out.print("输入入队元素: ");
+                        int data = scanner.nextInt();
+                        aq.addQueue(data);
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 'h':
+                    try{
+                        int result = aq.headQueue();
+                        System.out.println("队首元素: " + result);
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 'r':
+                    try{
+                        int result = aq.rearQueue();
+                        System.out.println("队尾元素: " + result);
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 'g':
+                    try{
+                        int result = aq.getQueue();
+                        System.out.println("出队元素: " + result);
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 'e':
+                    scanner.close();
+                    loop = false;
+                    break;
+                default:
+                    break;
 
-        // 遍历打印二维数组
-        System.out.println("----------------原始二维数组----------------");
-        for(int[] row : chessArr1){
-            for(int data : row){
-                System.out.printf("%d\t", data);
             }
-            System.out.println();
+
         }
 
-        // 将二维数组转成稀疏数组
-        // 1. 先遍历二维数组，得到有效值
-        int sum = 0;
-        for(int i=0; i<11; i++){
-            for(int j=0; j<11; j++){
-                if(chessArr1[i][j] != 0){
-                    sum = sum +1;
-                }
-            }
+    }
+
+}
+
+class ArrQueue{
+    private int maxSize;
+    private int front;
+    private int rare;
+    private int arr[];
+
+    public ArrQueue(int maxSize){
+        this.maxSize = maxSize;
+        front = -1;
+        rare = -1;
+        arr = new int[maxSize];
+    }
+
+    // 判断队列是否为空
+    public boolean isEmpty(){
+        return front == rare;
+    }
+
+    // 判断队列是否已满
+    public boolean isFull(){
+        return rare == arr.length -1;
+    }
+
+    // 返回对首元素
+    public int headQueue(){
+        if(isEmpty()){
+            throw new RuntimeException("队列是空的， 没有头元素");
         }
+        return arr[front+1];
+    }
 
-        // 2. 创建稀疏数组
-        int[][] sparseArr = new int[sum+1][3];
-        // 首行保存二维数组的基本信息
-        sparseArr[0][0] = 11;
-        sparseArr[0][1] = 11;
-        sparseArr[0][2] = sum;
-
-        // 将二维数组有效值的行列信息保存到稀疏数组
-        int count=0; // 用于记录第几个非0数据
-        for(int i=0; i<11; i++){
-            for(int j=0; j<11; j++){
-                if(chessArr1[i][j] != 0){
-                    count = count + 1;
-                    sparseArr[count][0] = i;
-                    sparseArr[count][1] = j;
-                    sparseArr[count][2] = chessArr1[i][j];
-                }
-            }
+    // 返回队尾元素
+    public int rearQueue(){
+        if(isEmpty()){
+            throw new RuntimeException("队列是空的， 没有尾元素");
         }
+        return arr[rare];
+    }
 
-        // 遍历打印稀疏数组
-        System.out.println("----------------稀疏数组----------------");
-        for(int i=0; i< sparseArr.length; i++){
-            System.out.printf("%d\t%d\t%d\t\n", sparseArr[i][0],sparseArr[i][1],sparseArr[i][2]);
+    // 新增队列元素
+    public void addQueue(int data){
+        if(isFull()){
+            throw new RuntimeException("队列满了，无法添加元素");
         }
+        rare = rare + 1;
+        arr[rare] = data;
+    }
 
-        //-----------------------------------------------------------------
-        // 课后练习： 将稀疏数组保存到文件 map.data
-        File out_file = new File("map.data");
-        FileWriter fw = new FileWriter(out_file);
-        for(int i=0; i< sparseArr.length; i++){
-            fw.write(sparseArr[i][0] + "\t");
-            fw.write(sparseArr[i][1] + "\t");
-            fw.write(sparseArr[i][2] + "\t");
-            fw.write("\r\n");
+    // 元素出队列
+    public int getQueue(){
+        if(isEmpty()){
+            throw new RuntimeException("队列是空的，没有可出队列的元素");
         }
-        fw.close();
-        //-----------------------------------------------------------------
+        front = front + 1; // 数组没变，只是下标往后移了一个位置
+        return arr[front];
+    }
 
-        //-----------------------------------------------------------------
-        // 课后练习： 读取 map.data 还原成稀疏数组
-        File in_file = new File("map.data");
-        FileReader fr = new FileReader(in_file);
-        BufferedReader br = new BufferedReader(fr);
-        int lineCount = 0;
-        int[][] sparseArr2 = new int[sum+1][3];
-        String line = null;
-        while ((line = br.readLine()) != null){
-            String[] lines = line.split("\t");
-            sparseArr2[lineCount][0] = Integer.parseInt(lines[0]);
-            sparseArr2[lineCount][1] = Integer.parseInt(lines[1]);
-            sparseArr2[lineCount][2] = Integer.parseInt(lines[2]);
-            lineCount = lineCount + 1;
+    // 遍历队列中的所有元素
+    public void showQueue(){
+        if(isEmpty()){
+            throw new RuntimeException("队列是空的");
         }
-        System.out.println("----------------从文件还原的稀疏数组----------------");
-        for(int i=0; i< sparseArr2.length; i++){
-            System.out.printf("%d\t%d\t%d\t\n", sparseArr2[i][0],sparseArr2[i][1],sparseArr2[i][2]);
+        for(int i=0; i<arr.length; i++){
+            System.out.printf("a[%d] = %d\t", i, arr[i]);
         }
-        //-----------------------------------------------------------------
-
-        // 稀疏数组还原成二维数组
-        // 1. 根据稀疏数组首行还原二维数组的大小
-        int[][] chessArr2 = new int[sparseArr[0][0]][sparseArr[0][1]];
-
-        // 2. 遍历稀疏数组，把有效值还原到二维数组里,
-        for(int i=1; i< sparseArr.length; i++){ // i 从 1开始
-            chessArr2[sparseArr[i][0]][sparseArr[i][1]] = sparseArr[i][2];
-        }
-
-        // 打印还原后的二维数组
-        System.out.println("----------------还原后的二维数组----------------");
-        for(int[] row : chessArr2){
-            for(int data : row){
-                System.out.printf("%d\t", data);
-            }
-            System.out.println();
-        }
-
+        System.out.println();
     }
 
 }
