@@ -26,7 +26,10 @@ package com.stanlong;
  * 元素个数 = (rear-front+maxSize)%maxSize
  *
  * 第二大类：定义 rear 指向队尾元素的后一个位置， front指向对头元素
- * 其特性与第一大类一样
+ * 第一个元素入队后保存在 front=0 的位置。 rear 往后移一位（rear+1）
+ * 队空：front = rear
+ * 队满：(rear + 1) % maxSize = front
+ * 元素格数：(rear-front+maxSize)%maxSize
  */
 public class DataStructure {
 
