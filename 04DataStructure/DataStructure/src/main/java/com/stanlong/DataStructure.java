@@ -27,8 +27,17 @@ public class DataStructure {
         sll.insert(node02);
         sll.insert(node03);
         sll.insert(node04);
+        sll.show();
 
+        // System.out.println("=================修改==================");
+        // sll.update(node05);
+        // sll.show();
 
+        System.out.println("=================删除==================");
+        sll.delete(node01);
+        sll.show();
+        System.out.println("-----------------");
+        sll.delete(node04);
         sll.show();
     }
 }
@@ -79,17 +88,9 @@ class SingleLinkedList{
                 break;
             }
 
-            if(temp.next.data > temp.data){ // 找到可以插入的位置，退出循环
+            if(temp.next.data < temp.data){ // 找到可以插入的位置，退出循环
                 break;
             }
-            // 以节点数据与 1 2 3 4 为例
-            // temp.next.data > temp.data
-            // 进入链表的顺序为 head, head->1, head->2->1, head->3->2->1, head->4->3->2->1
-            // 即最先插入的排在链表末尾，最后插入的排在链表头部， 遍历的时候，后进先出(栈)
-
-            // temp.next.data < temp.data
-            // 进入链表的顺序为 head, head->1, head->1->2, head->1->2->3,head->1->2->3->4,
-            // 即最先插入的排在链表头部，最后插入的排在链表末尾， 遍历的时候，先入先出（队列）
 
             temp = temp.next; // 后移，遍历当前列表
         }
@@ -117,5 +118,38 @@ class SingleLinkedList{
     }
 
     // 修改
+    public void update(Node node){
+        if(headNode.next == null){
+            System.out.println("链表是空的");
+        }
+        Node temp = headNode.next;
+        while (true){
+            if (temp == null){ // 尾节点如果是空的，则退出
+                System.out.println("链表遍历结束，没有找到匹配的节点");
+                break;
+            }
+            if(temp.data == node.data){ // 找到了要更改的节点
+                temp.data = 100;
+                break;
+            }
+            temp = temp.next;
+        }
+    }
+
     // 删除
+    public void delete(Node node) {
+        Node temp = headNode;
+        while (true) {
+            if (temp.next == null) { // 尾节点如果是空的，则退出
+                System.out.println("链表遍历结束，没有找到要删除的节点");
+                break;
+            }
+            if (temp.next.data == node.data) { // 找的了要删除的节点
+                temp.next = temp.next.next;
+                break;
+            }
+            temp = temp.next;
+
+        }
+    }
 }
