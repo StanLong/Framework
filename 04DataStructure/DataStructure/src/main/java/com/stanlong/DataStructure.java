@@ -33,12 +33,24 @@ public class DataStructure {
         // sll.update(node05);
         // sll.show();
 
-        System.out.println("=================删除==================");
-        sll.delete(node01);
-        sll.show();
-        System.out.println("-----------------");
-        sll.delete(node04);
-        sll.show();
+        // System.out.println("=================删除==================");
+        // sll.delete(node01);
+        // sll.show();
+        // System.out.println("-----------------");
+        // sll.delete(node04);
+        // sll.show();
+
+        // int length = sll.getLength();
+        // System.out.println("链表的长度为: " + length);
+
+        int left = 4;
+        Node leftNode = sll.getLeft(left);
+        System.out.printf("链表第 %s 个节点是 %s ", left, leftNode);
+        System.out.println();
+
+        int right = 4;
+        Node rightNode = sll.getRight(right);
+        System.out.printf("链表倒数第 %s 个节点是 %s ", right, rightNode);
     }
 }
 
@@ -152,4 +164,79 @@ class SingleLinkedList{
 
         }
     }
+
+    // 求链表的长度
+    public int getLength(){
+        Node temp = headNode;
+        int length = 0;
+        if(temp.next == null){
+            return length;
+        }
+        while (true){
+            if(temp.next == null){
+                break;
+            }
+            length = length + 1;
+            temp = temp.next;
+        }
+        return length;
+    }
+
+    // 求链表左边第k给元素的值
+    public Node getLeft(int index){
+        int length = getLength();
+        if(index > length || index < 0){
+            System.out.println("输入的数字以越界");
+            return null;
+        }
+        Node temp = headNode;
+        if (temp.next == null){
+            System.out.println("链表是空的");
+            return null;
+        }
+        int len = 0;
+        while (true){
+            if(temp.next == null){
+                break;
+            }
+            if(len == index){
+                break;
+            }
+            len = len +1;
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+    // 求链表右边第k个元素的值
+    public Node getRight(int index){
+        int length = getLength();
+        if(index > length || index < 0){
+            System.out.println("输入的数字以越界");
+            return null;
+        }
+        Node temp = headNode;
+        if (temp.next == null){
+            System.out.println("链表是空的");
+            return null;
+        }
+        int len = 0;
+        while (true){
+            if(temp.next == null){
+                break;
+            }
+            temp = temp.next;
+            if((getLength() - len) == index){
+                break;
+            }
+            len = len + 1;
+
+
+        }
+        return temp;
+    }
+
+    // 将链表反转
+
+    // 链表合并
 }
