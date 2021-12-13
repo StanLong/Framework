@@ -29,6 +29,10 @@ public class DataStructure {
         sll.insert(node04);
         sll.show();
 
+        System.out.println("=================链表反转==================");
+        sll.reverse();
+        sll.show();
+
         // System.out.println("=================修改==================");
         // sll.update(node05);
         // sll.show();
@@ -43,14 +47,16 @@ public class DataStructure {
         // int length = sll.getLength();
         // System.out.println("链表的长度为: " + length);
 
-        int left = 4;
-        Node leftNode = sll.getLeft(left);
-        System.out.printf("链表第 %s 个节点是 %s ", left, leftNode);
-        System.out.println();
+        // int left = 4;
+        // Node leftNode = sll.getLeft(left);
+        // System.out.printf("链表第 %s 个节点是 %s ", left, leftNode);
+        // System.out.println();
 
-        int right = 4;
-        Node rightNode = sll.getRight(right);
-        System.out.printf("链表倒数第 %s 个节点是 %s ", right, rightNode);
+        // int right = 2;
+        // Node rightNode = sll.getRight(right);
+        // System.out.printf("链表倒数第 %s 个节点是 %s ", right, rightNode);
+
+
     }
 }
 
@@ -195,11 +201,8 @@ class SingleLinkedList{
             return null;
         }
         int len = 0;
-        while (true){
+        while (len != index){
             if(temp.next == null){
-                break;
-            }
-            if(len == index){
                 break;
             }
             len = len +1;
@@ -221,22 +224,60 @@ class SingleLinkedList{
             return null;
         }
         int len = 0;
-        while (true){
+        while ((getLength() - len) != (index-1)){
             if(temp.next == null){
                 break;
             }
             temp = temp.next;
-            if((getLength() - len) == index){
-                break;
-            }
             len = len + 1;
-
-
         }
         return temp;
     }
 
-    // 将链表反转
+    // 链表反转
+    // 1. 先定义一个节点 reverseHead
+    // 2. 从头到尾遍历原来的链表，将其取出，并放在新的链表的reverseHead的最前端
+    // 3. head.next = reverseHead.next
+    public void reverse(){
+        if (headNode.next == null || headNode.next.next == null){ // 链表为空，或者链表只有一个节点，则无需反转
+            return;
+        }
+        Node curr = headNode.next;
+        Node next = null;  // 遍历原链表时，是把节点一个一个取出来的。为了遍历不至于中断，定义next用来保存当前节点的下一个节点
+        Node reverseHead = new Node(0);
+
+        /**
+         * 语言描述
+         * 假设原链表是 head->1->2->3
+         * 第一轮循环
+         * curr = 1 != null 进入循环体
+         * next = 2
+         * 1 原来是指向 2 的，现在指向 null 1->null
+         * reverseHead 原来是指向 null 的，现在指向 1
+         * curr = 2
+         *
+         * 第一轮循环结束
+         * reverseHead -> null 变成 reverseHead -> 1 -> null
+         *
+         * 第二轮循环
+         * curr = 2 != null 进入循环体
+         * next = 3
+         * 2 原来是指向 3 的，现在指向 1
+         * reverseHead 原先是指向 1 的，现在指向 2
+         * curr = 3
+         *
+         * 第二轮循环结束
+         * reverseHead -> 1 -> null 变成 reverseHead -> 2 -> 1 -> null
+         */
+        while (curr != null){
+            next = curr.next; // 将当前节点的下一个节点保存到next里
+            curr.next = reverseHead.next;  // 改变当前节点的指向，即把节点从原链表中摘下来
+            reverseHead.next = curr; // 把摘下来的节点拼接到reverseHead后面
+            curr = next; // 继续摘下一个节点
+        }
+        headNode.next = reverseHead.next;
+
+    }
 
     // 链表合并
 }
