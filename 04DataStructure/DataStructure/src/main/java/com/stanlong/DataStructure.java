@@ -18,24 +18,15 @@ public class DataStructure {
         Node node03 = new Node(1);
         Node node04 = new Node(2);
 
-        // sll.add(node01);
-        // sll.add(node02);
-        // sll.add(node03);
-        // sll.add(node04);
-
-        sll.insert(node01);
-        sll.insert(node02);
-        sll.insert(node03);
-        sll.insert(node04);
+        sll.add(node01);
+        sll.add(node02);
+        sll.add(node03);
+        sll.add(node04);
         sll.show();
 
-        System.out.println("=================链表反转==================");
-        sll.reverse();
+        System.out.println("=================修改==================");
+        sll.update(node04);
         sll.show();
-
-        // System.out.println("=================修改==================");
-        // sll.update(node05);
-        // sll.show();
 
         // System.out.println("=================删除==================");
         // sll.delete(node01);
