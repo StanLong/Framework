@@ -22,18 +22,19 @@ public class DataStructure {
         sll.add(node02);
         sll.add(node03);
         sll.add(node04);
+
         sll.show();
 
         System.out.println("=================修改==================");
         sll.update(node04);
         sll.show();
 
-        // System.out.println("=================删除==================");
-        // sll.delete(node01);
-        // sll.show();
-        // System.out.println("-----------------");
-        // sll.delete(node04);
-        // sll.show();
+        System.out.println("=================删除==================");
+        sll.delete(node01);
+        sll.show();
+        System.out.println("-----------------");
+        sll.delete(node04);
+        sll.show();
 
         // int length = sll.getLength();
         // System.out.println("链表的长度为: " + length);
@@ -269,6 +270,4 @@ class SingleLinkedList{
         headNode.next = reverseHead.next;
 
     }
-
-    // 链表合并
 }
