@@ -6,9 +6,10 @@ package com.stanlong;
 public class DataStructure {
 
     public static void main(String[] args) throws Exception {
-        CircleSingleLinkedList csll = new CircleSingleLinkedList();
-        csll.add(5);
-        csll.show();
+        CircleSingleLinkedList csld = new CircleSingleLinkedList();
+        csld.add(5);
+        csld.show();
+        csld.out(1,2,5);
 
     }
 }
@@ -53,15 +54,18 @@ class CircleSingleLinkedList{
     // 创建头节点，作为引入环形链表的引子
     Node headNode = null;
 
-    // 创建第一个节点，构建成环形链表
+    /**
+     * 新增
+     * @param nums 加入的节点个数
+     */
     public void add(int nums){ // nums 表示加入节点的数量
         if(nums < 1){
-            System.out.println("节点个数不能为1");
+            System.out.println("节点个数不能少于1");
         }
         Node temp = null; // 辅助指针，用来帮助构建环形链表
         for(int i = 1; i<=nums; i++){
             Node node = new Node(i);
-            if(i==1){ // 如果时第一个节点，则自己构成环
+            if(i==1){ // 第一个节点自己构成环
                 headNode = node;
                 headNode.setNext(headNode);
                 temp = headNode;
@@ -73,18 +77,68 @@ class CircleSingleLinkedList{
         }
     }
 
+    // 展示
     public void show(){
         if(headNode==null){
             System.out.println("环形链表是空的");
             return;
         }
         Node temp = headNode;
+        System.out.println("入环顺序：");
         while (true){
-            System.out.printf("节点编号%d \n", temp.getData());
+            System.out.printf("%d -> ", temp.getData());
             if(temp.getNext() == headNode){
                 break;
             }
             temp = temp.getNext();
         }
+        System.out.println();
+    }
+
+    /**
+     * 出环形链表
+     * @param startNo 从第几个开始数
+     * @param countNum 数几下
+     * @param nums 链表中节点的个数
+     */
+    public void out(int startNo, int countNum, int nums){
+        if(headNode == null || startNo < 1 || startNo > nums){
+            System.out.println("非法输入");
+            return;
+        }
+        Node temp = headNode; // 辅助遍历指针
+
+        // temp 指针紧跟在 headNode 后面
+        while (true){
+            if(temp.getNext() == headNode){
+                break;
+            }
+            temp = temp.getNext();
+        }
+
+        // 将 temp 和 headNode 移动到 startNo 个位置。
+        // 注意从 temp 和 headNode 开始数，因此移动的次数时 startNo-1
+        for(int i=0; i < startNo-1; i++){
+            headNode = headNode.getNext();
+            temp = temp.getNext();
+        }
+
+        // 移动到 startNo 这个位置后，就可以准备将节点出环形队列了
+        System.out.println("出环顺序：");
+        while (true){
+            if(temp == headNode){ // 只剩一个节点了
+                break;
+            }
+            for(int j=0; j<countNum-1; j++){
+                headNode = headNode.getNext();
+                temp = temp.getNext();
+            }
+            System.out.printf("%d -> ", headNode.getData());
+            headNode = headNode.getNext();
+            temp.setNext(headNode);
+        }
+        System.out.println();
+        System.out.printf("环中最后一个节点是 %d \n", headNode.getData());
+
     }
 }
