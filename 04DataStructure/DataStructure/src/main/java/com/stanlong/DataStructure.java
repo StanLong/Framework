@@ -11,11 +11,15 @@ public class DataStructure {
 
     public static void main(String[] args) throws Exception {
         String expression = "1+((2+3)*4)-5";
-        List<String> list = toInfixExpressionList(expression);
-        // System.out.println(list);
+        List<String> list = toInfixExpressionList(expression); // 将中缀表达式拆成一个列表
 
-        List<String> parseSuffixExpression = parseSuffixExpressionList(list);
+        List<String> parseSuffixExpression = parseSuffixExpressionList(list); // 将中缀表达式转成后缀表达式
+
         System.out.println(parseSuffixExpression);
+
+        int result = calculate(parseSuffixExpression); // 计算后缀表达式
+        System.out.println(result);
+
 
     }
 
@@ -25,7 +29,7 @@ public class DataStructure {
         List<String> ls = new ArrayList<>();
         int i = 0; // 帮助遍历中缀表达式
         String str=""; // 拼接多位数
-        char c=' ';
+        char c=' '; // 遍历中缀表达式取出的字符
         do{
             if((c=s.charAt(i))<48 || (c=s.charAt(i))>57){ // 如果扫描到的是非数字
                 ls.add("" + c);
@@ -73,8 +77,43 @@ public class DataStructure {
         }
         return middleResult;
     }
+
+    /**
+     * 计算后缀表达式
+     *
+     * 思路：
+     * 遍历后缀表达式
+     * 如果是数字，就将数字入栈
+     * 如果是操作符，则弹出栈中的数字进行运算，然后再将运算结果入栈
+     */
+    public static int calculate(List<String> list){
+        Stack<String> stack = new Stack<>();
+        for(String item: list){
+            if(item.matches("\\d+")){
+                stack.push(item);
+            }else{
+                int num1 = Integer.parseInt(stack.pop());
+                int num2 = Integer.parseInt(stack.pop());
+                int result = 0;
+                if(item.equals("+")){
+                    result = num1 + num2;
+                }else if(item.equals("-")){
+                    result = num2 - num1;
+                }else if(item.equals("*")){
+                    result = num1 * num2;
+                }else if(item.equals("/")){
+                    result = num2 / num1;
+                }else{
+                    throw new RuntimeException("错误的操作符");
+                }
+                stack.push("" + result);
+            }
+        }
+        return Integer.parseInt(stack.pop());
+    }
 }
 
+// 定义操作符优先级
 class Operation{
     private static int ADD=1;
     private static int SUB=1;
@@ -97,7 +136,8 @@ class Operation{
                 result = DIV;
                 break;
             default:
-                throw new RuntimeException("错误的操作符");
+                result = 0;
+                break;
         }
         return result;
     }
