@@ -1,77 +1,65 @@
 package com.stanlong;
 
 /**
- * 迷宫问题
+ * 八皇后问题
  */
 public class DataStructure {
 
+    // 八个皇后
+    static int max=8;
+
+    // 保存皇后放置位置的结果
+    // 用一维数组模拟二维棋盘， 下标索引表示行，值表示列
+    static int[] array = new int[max];
+
+    // 统计有多少种解法
+    static int count =0;
+
     public static void main(String[] args) throws Exception {
-
-        // 用二维数组模拟迷宫 , 1 表示墙
-        int[][] map= new int[8][7];
-
-        // 设置左右围墙
-        for (int i=0; i<8 ; i++){
-            map[i][0] = 1;
-            map[i][6] = 1;
-        }
-
-        // 设置上下围墙
-        for (int i=0; i<7; i++){
-            map[0][i] = 1;
-            map[7][i] = 1;
-        }
-
-        // 设置挡板
-        map[3][1] = 1;
-        map[3][2] = 1;
-
-        // 输出地图
-        System.out.println("地图情况");
-        for(int i=0; i<8; i++){
-            for(int j=0; j<7; j++){
-                System.out.print(map[i][j] + " ");
-            }
-            System.out.println();
-        }
-
-        // 开始查找
-        findWay(map, 1, 1);
-
-        // 输出查找路径
-        System.out.println("查找路径");
-        for(int i=0; i<8; i++){
-            for(int j=0; j<7; j++){
-                System.out.print(map[i][j] + " ");
-            }
-            System.out.println();
-        }
-
+        check(0); // 开始在棋盘上放皇后
+        System.out.printf("共有%d种解法", count);
     }
 
-    /**
-     * 从初始位置开始查找到 map[6][5] 的路径
-     * @param map 地图
-     * @param i 初始位置
-     * @param j 初始位置
-     * @return true 表示路可以走， false 表示不能走
-     */
-    public static boolean findWay(int[][] map, int i, int j){
-        if(map[6][5]==2){ // 如果走到目标点，则退出
-            return true;
-        }else {
-            if(map[i][j]==0){ // 如果这个点没有走过
-                map[i][j] = 2; // 标记这个点可以走
-                // 如果这个点往下，往右，往上，往左 能走通
-                if(findWay(map, i+1, j) || findWay(map, i, j+1) || findWay(map, i-1, j) ||findWay(map, i, j-1)){ // 往下走能走通，则返回true
-                    return true;
-                }else{
-                    map[i][j] = 3; // 上下左右都走不通，说明这个点被围起来了，返回 false
-                    return false;
-                }
-            }else{  // 如果当前位置不能走，返回false
+    // 放置皇后的方法
+    private static void check(int n){ // n 表示皇后的个数
+        if(n == max){ // 放置到最后一个
+            print(); // 最后一个皇后放好后，打印所有结果
+            return;
+        }
+        // 依次放入皇后，并判断是否冲突
+        for(int i=0; i<max; i++){ // 从 0 到 max -1 列
+            // 把第 n 个皇后放到第 i 列
+            array[n] = i;
+            // 判断当放置第 n 个皇后到i列时，是否冲突
+            if(judge(n)){ // 不冲突
+                // 放第n+1个皇后
+                check(n+1);
+            }
+            // 如果冲突，就继续执行 array[n] = i; 即将第n个皇后放置到后移的一个位置上
+
+        }
+    }
+
+    // 查看当放置第n个皇后时，是否和已放置的冲突
+    private static boolean judge(int n){
+        for (int i=0; i<n; i++){
+            // array[i] == array[n] 表示在同一列
+            // Math.abs(n-i) == Math.abs(array[n] - array[i]) 表示是否在同一斜线，
+            //  这里用的是数学上求斜率的方法，因为棋盘是个正方形， 所以斜率的绝对值为1
+            // n 传进来的值每次都是递增的，可以不用判断是否在同一行
+            if(array[i] == array[n] || Math.abs(n-i) == Math.abs(array[n] - array[i])){
                 return false;
             }
         }
+        return true;
+    }
+
+    // 输出八皇后问题的解法
+    private static void print(){
+        count = count + 1;
+        for(int i=0; i< array.length; i++){
+            System.out.print(array[i] + " ");
+        }
+        System.out.println();
     }
 }
