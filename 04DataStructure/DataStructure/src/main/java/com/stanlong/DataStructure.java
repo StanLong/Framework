@@ -3,32 +3,58 @@ package com.stanlong;
 import java.util.Arrays;
 
 /**
- * 选择排序
+ * 希尔排序
  */
 public class DataStructure {
 
     public static void main(String[] args) throws Exception {
-        int[] arr = {3,44,38,5,47,15,36,26,27,2,46,4,19,50,48};
+        int[] arr = {84, 83, 88, 87, 61, 50, 70, 60, 80, 99};
 
-        for(int i=0; i<arr.length - 1; i++){
-            // 假定最小值
-            int minIndex = i;
-            int min = arr[i];
-            for(int j=i+1; j<arr.length; j++){
-                if(min > arr[j]){ // 假定的min不是最小值
-                    // 重制最小值
-                    minIndex = j;
-                    min = arr[j];
+        // 数据交换法
+
+        // 交换用临时变量
+        //int temp =0;
+
+        // 统计比较循环次数
+        //int count = 0;
+//        for(int step = arr.length / 2; step > 0; step = step/2){
+//            count = count + 1;
+//            for(int i=step; i< arr.length; i++){
+//                // 按步长step遍历各组的数据，每组数据有2个元素
+//                // 已第一轮遍历为例，就是下标为0的数据和下标为step的数据比较
+//                // 第二轮遍历就是下标为1和下标为step+1的数据比较
+//                for(int j = i-step; j>=0; j=j-step){
+//                    if(arr[j] > arr[j+step]){ // 交换数据
+//                        temp = arr[j];
+//                        arr[j] = arr[j+step];
+//                        arr[j+step] = temp;
+//                    }
+//                }
+//            }
+//            System.out.println("第" + count + "轮排序结果: " + Arrays.toString(arr));
+//        }
+//        System.out.println("最终排序结果: " + Arrays.toString(arr));
+
+
+        // 数据移动法
+        // 统计比较循环次数
+        int count = 0;
+        for(int step = arr.length / 2; step > 0; step = step / 2){
+            count = count + 1;
+            for(int i = step; i< arr.length; i++){
+                int j = i;
+                int temp = arr[j];
+                if(arr[j] < arr[j-step]){
+                    while (j - step >=0 && temp < arr[j-step]){
+                        // 移动
+                        arr[j] = arr[j-step];
+                        j = j-step;
+                    }
+                    arr[j] = temp;
                 }
             }
-            if(minIndex != i){
-                // 交换
-                arr[minIndex] = arr[i];
-                arr[i] = min;
-            }
-            System.out.println("第" + i + "轮选择排序结果: " + Arrays.toString(arr));
+            System.out.println("第" + count + "轮排序结果: " + Arrays.toString(arr));
         }
-        System.out.println("选择排序总结果: " + Arrays.toString(arr));
+        System.out.println("最终排序结果: " + Arrays.toString(arr));
     }
-
 }
