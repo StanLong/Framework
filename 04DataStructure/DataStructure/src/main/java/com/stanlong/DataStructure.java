@@ -3,58 +3,79 @@ package com.stanlong;
 import java.util.Arrays;
 
 /**
- * 希尔排序
+ * 基数排序
+ * 对手机号进行排序
  */
 public class DataStructure {
 
     public static void main(String[] args) throws Exception {
-        int[] arr = {84, 83, 88, 87, 61, 50, 70, 60, 80, 99};
+        int[] array = {3,44,38,5,47,15,36,26,27,2,46,4,19,50,48};
+        int[] result = radixSort(array);
+        System.out.println(Arrays.toString(result));
+    }
 
-        // 数据交换法
+    /**
+     * 基数排序
+     * @param array 待排序数组
+     */
+    public static int[] radixSort(int[] array){
 
-        // 交换用临时变量
-        //int temp =0;
+        // 用于保存排序结果
+        int[] result = new int[array.length];
 
-        // 统计比较循环次数
-        //int count = 0;
-//        for(int step = arr.length / 2; step > 0; step = step/2){
-//            count = count + 1;
-//            for(int i=step; i< arr.length; i++){
-//                // 按步长step遍历各组的数据，每组数据有2个元素
-//                // 已第一轮遍历为例，就是下标为0的数据和下标为step的数据比较
-//                // 第二轮遍历就是下标为1和下标为step+1的数据比较
-//                for(int j = i-step; j>=0; j=j-step){
-//                    if(arr[j] > arr[j+step]){ // 交换数据
-//                        temp = arr[j];
-//                        arr[j] = arr[j+step];
-//                        arr[j+step] = temp;
-//                    }
-//                }
-//            }
-//            System.out.println("第" + count + "轮排序结果: " + Arrays.toString(arr));
-//        }
-//        System.out.println("最终排序结果: " + Arrays.toString(arr));
+        // 声明计数数组，长度最多10
+        int[] count = new int[10];
 
+        // 获取 array 中的最长数位值
+        int maxLength = getLength(array);
 
-        // 数据移动法
-        // 统计比较循环次数
-        int count = 0;
-        for(int step = arr.length / 2; step > 0; step = step / 2){
-            count = count + 1;
-            for(int i = step; i< arr.length; i++){
-                int j = i;
-                int temp = arr[j];
-                if(arr[j] < arr[j-step]){
-                    while (j - step >=0 && temp < arr[j-step]){
-                        // 移动
-                        arr[j] = arr[j-step];
-                        j = j-step;
-                    }
-                    arr[j] = temp;
-                }
+        for(int i=0; i<maxLength; i++){
+            int division = (int)Math.pow(10, i); // 返回 10 的 i 次方, 用于处理个位，十位，百位
+            for(int j=0; j< array.length;j++){
+                int num = array[j] / division % 10;
+                // 解释下这一行 假设 array[j] = 123
+                // division 为 1 时，123 / 1 % 10 = 3 个位数
+                // division 为 10 时， 123 / 10 % 10 = 2 十位数
+                // division 为 100 时， 123 / 100 % 10 = 1 百位数
+                count[num]++;
             }
-            System.out.println("第" + count + "轮排序结果: " + Arrays.toString(arr));
+            // 对 count 数组进行变形
+            for(int m=1; m< count.length; m++){
+                count[m] = count[m]+count[m-1];
+            }
+
+            // 倒序遍历array， 开始排序
+            for(int n=array.length-1; n>=0; n--){
+                int num = array[n] / division % 10;
+                count[num]--;
+                result[count[num]] = array[n];
+            }
+
+            /**
+             * arraycopy
+             *  src：要复制的数组(源数组)
+             *  srcPos：复制源数组的起始位置
+             *  dest：目标数组
+             *  destPos：目标数组的下标位置
+             *  length：要复制的长度
+             */
+            // result 数组从0开始复制array.length个值到array数组中从0开始的位置
+            // 这一步是保存每一轮的排序结果
+            System.arraycopy(result, 0, array, 0, array.length);
+
+            // 每一轮排序结束后，计数数组置0
+            Arrays.fill(count, 0);
         }
-        System.out.println("最终排序结果: " + Arrays.toString(arr));
+        return result;
+    }
+
+    // 获取 array 中的最长数位值
+    private static int getLength(int[] array){
+        int max = Integer.MIN_VALUE;
+        for(int data : array){
+            int strLen = (data+"").length();
+            max = Math.max(max, strLen);
+        }
+        return max;
     }
 }
