@@ -1,68 +1,102 @@
 package com.stanlong;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
- * 二分查找
- * 返回所有目标值的索引
+ * 斐波那契查找
+ * 先构建一个斐波那契数列
  */
 public class DataStructure {
 
+    // 斐波那契数列的长度
+    public static int maxSize = 20;
+
     public static void main(String[] args) throws Exception {
-        int[] array = {2, 3,3,3,3, 4, 5, 15, 19, 26, 27, 36, 38, 44, 46, 47, 48, 50};
-        int left = 0;
-        int right = array.length-1;
-        int target = 3;
-        ArrayList<Integer> arrayList = binarySearch(array, left, right,target);
-        if(arrayList.isEmpty()){
+        int[] array = {2, 3, 4, 5, 15, 19, 26, 27, 36, 38, 44, 46, 47, 48, 50};
+        int target = 500;
+        int result = fbiSearch(array, target);
+        if(result == -1){
             System.out.println("没有找到目标值");
         }else{
-            System.out.println("目标值索引是: " + arrayList.toString());
+            System.out.println("目标值的索引是: " + result);
         }
     }
 
     /**
-     * 二分查找
-     * @param array 待查找数组
-     * @param left 最小索引
-     * @param right 最大索引
-     * @param target 目标值
-     * @return 返回目标值的索引
+     * 使用非递归的方式生成一个斐波那契数列，最长20
+     * @return 长度位20的斐波那契数列
      */
-    public static ArrayList<Integer> binarySearch(int[] array, int left, int right, int target){
-        // 递归结束条件
-        if(left > right){
-            return new ArrayList<Integer>();
+    public static int[] fib(){
+        int[] f = new int[maxSize];
+        f[0] = 1;
+        f[1] = 1;
+        for(int i=2; i<maxSize; i++){
+            f[i] = f[i-1] + f[i-2];
         }
-        int mid = (left+right)/2;
-        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+        System.out.println(Arrays.toString(f));
+        // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765]
+        return f;
+    }
 
-        if(array[mid] > target){ // 递归左边
-            return binarySearch(array, left, mid-1, target);
-        } else if(array[mid] < target){ // 递归右边
-            return binarySearch(array, mid+1, right, target);
-        }else {
-            // 先保存中间值到列表里
-            arrayList.add(mid);
-            int temp = mid-1;
-            while (true){
-                if(temp < 0 || array[temp] != target){
-                    break;
-                }else{
-                    arrayList.add(temp);
-                    temp = temp - 1;
-                }
-            }
-            temp = mid+1;
-            while (true){
-                if(temp >= array.length || array[temp] != target){
-                    break;
-                }else{
-                    arrayList.add(temp);
-                    temp = temp + 1;
+    /**
+     * 斐波那契查找
+     * @param array 待查找数组
+     * @param target 目标值
+     * @return 目标值的下标
+     */
+    public static int fbiSearch(int[] array, int target){
+        int left = 0;
+        int right = array.length - 1;
+        int k = 0; // 表示斐波那契分割数的下标值
+        int mid = 0;
+        int fib[] = fib();
+
+        // 获取斐波那契分割数值的下标
+        while (right>fib[k]-1){
+            k++;
+        }
+
+        // Arrays.copyOf(array, fib[k]); 参数一：要复制的数组， 参数二：复制的长度
+        // 因为f[k]值可能大于a的长度，不足的部分 Arrays.copyOf 方法会使用0补齐
+        int[] temp = Arrays.copyOf(array, fib[k]);
+
+        // 这里不用0，使用array数组的最后一个数来填充不足的部分
+        for(int i=right+1; i< temp.length; i++){
+            temp[i] = array[right];
+        }
+
+        while (left <= right){
+            mid = left + fib[k-1] -1;
+            if(target<temp[mid]){ // 向左边找
+                right = mid-1;
+                k = k-1;
+                /**
+                 * 对k--进行理解
+                 * 1.全部元素=前面的元素+后面的元素
+                 * 2.f[k]=k[k-1]+f[k-2]
+                 * 因为前面有k-1个元素没所以可以继续分为f[k-1]=f[k-2]+f[k-3]
+                 * 即在f[k-1]的前面继续查找k--
+                 * 即下次循环,mid=f[k-1-1]-1
+                 */
+            }else if(target > temp[mid]){ // 向右边找
+                left = mid + 1;
+                k = k-2;
+                /**
+                 * 对k-=2理解
+                 * 1.全部元素=前面的元素+后面的元素
+                 * 2.f[k]=k[k-1]+f[k-2]
+                 * 3.因为后面有k-2个元素，所以可以继续拆分f[k-2]=f[k-3]+f[k-4]
+                 * 4.即在f[k-2]前面进行查找k-=2
+                 * 5.即在下次循环mid=[k-1-2]-1
+                 */
+            }else{
+                if(mid<=right){
+                    return mid;
+                }else {
+                    return right;
                 }
             }
         }
-        return arrayList;
+        return -1;
     }
 }
