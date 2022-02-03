@@ -13,7 +13,7 @@ public class DataStructure {
 
     public static void main(String[] args) throws Exception {
         int[] array = {2, 3, 4, 5, 15, 19, 26, 27, 36, 38, 44, 46, 47, 48, 50};
-        int target = 500;
+        int target = 50;
         int result = fbiSearch(array, target);
         if(result == -1){
             System.out.println("没有找到目标值");
