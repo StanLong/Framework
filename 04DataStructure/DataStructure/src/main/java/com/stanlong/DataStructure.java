@@ -1,6 +1,5 @@
 package com.stanlong;
 
-
 import lombok.*;
 
 /**
@@ -22,7 +21,7 @@ public class DataStructure {
         Node node6 = new Node(6);
         Node node7 = new Node(7);
 
-        // 这里创建一颗满二叉树
+        // 把节点挂到树上
         bt.setRoot(root); // 设置树的根节点
         root.setLeft(node2);
         root.setRight(node3);
@@ -31,14 +30,14 @@ public class DataStructure {
         node3.setLeft(node6);
         node3.setRight(node7);
 
-        System.out.println("==============前序遍历==============");
-        bt.preOrder();
+        Node preResult = bt.preOrderSearch(5);
+        System.out.println("前序遍历查找结果: " + preResult.getId());
 
-        System.out.println("==============中序遍历==============");
-        bt.infixOrder();
+        Node infixResult = bt.infixOrderSearch(5);
+        System.out.println("中序遍历查找结果: " + infixResult.getId());
 
-        System.out.println("==============后序遍历==============");
-        bt.postOrder();
+        Node postNode = bt.postOrderSearch(5);
+        System.out.println("后序序遍历查找结果: " + postNode.getId());
 
     }
 }
@@ -59,43 +58,61 @@ class Node{
     private Node left; // 左指针
     private Node right;  // 右指针
 
-    // 前序遍历
-    public void preOrder(){
-        System.out.println(this); // 先输出父节点
-        // 递归向左子树前序遍历
+    // 前序遍历查找
+    public Node preOrderSearch(int id){
+        Node result = null;
+        if(this.id == id){
+            return this;
+        }
         if(this.left != null){
-            this.left.preOrder();
+            result = this.left.preOrderSearch(id);
         }
-        // 递归向右子树前序遍历
+        if(result != null){
+            return result;
+        }
         if(this.right != null){
-            this.right.preOrder();
+            result = this.right.preOrderSearch(id);
         }
+        return result;
     }
 
-    // 中序遍历
-    public void infixOrder(){
-        // 递归向左子树中序遍历
+    // 中序遍历查找
+    public Node infixOrderSearch(int id){
+        Node result = null;
         if(this.left != null){
-            this.left.infixOrder();
+            result = this.left.infixOrderSearch(id);
         }
-        // 输出父节点
-        System.out.println(this);
-
-        // 递归向右子树中序遍历
+        if(result != null){
+            return result;
+        }
+        if(this.id == id){
+            return this;
+        }
         if(this.right != null){
-            this.right.infixOrder();
+            result = this.right.infixOrderSearch(id);
         }
+        return result;
     }
 
-    // 后续遍历
-    public void postOrder(){
+    // 后续遍历查找
+    public Node postOrderSearch(int id){
+        Node result = null;
         if(this.left != null){
-            this.left.postOrder();
+            result = this.left.postOrderSearch(id);
+        }
+        if(result != null){
+            return result;
         }
         if(this.right != null){
-            this.right.postOrder();
+            result = this.right.postOrderSearch(id);
         }
-        System.out.println(this);
+        if(result != null){
+            return result;
+        }
+        if(this.id == id){
+            return this;
+        }
+        return result;
     }
 }
 
@@ -104,31 +121,30 @@ class BinaryTree{
     @Setter
     private Node root; // 声明二叉树的根节点
 
-
-    // 前序遍历
-    public void preOrder(){
-        if(this.root != null){
-            this.root.preOrder();
+    // 前序遍历查找
+    public Node preOrderSearch(int id){
+        if(root != null){
+            return root.preOrderSearch(id);
         }else{
-            System.out.println("二叉树为空，无法遍历");
+            return null;
         }
     }
 
-    // 中序遍历
-    public void infixOrder(){
-        if(this.root != null){
-            this.root.infixOrder();
+    // 中序遍历查找
+    public Node infixOrderSearch(int id){
+        if(root != null){
+            return root.infixOrderSearch(id);
         }else {
-            System.out.println("二叉树为空，无法遍历");
+            return null;
         }
     }
 
-    // 后续遍历
-    public void postOrder(){
-        if(this.root != null){
-            this.root.postOrder();
+    // 后续遍历查找
+    public Node postOrderSearch(int id){
+        if(root != null){
+            return root.postOrderSearch(id);
         }else {
-            System.out.println("二叉树为空，无法遍历");
+            return null;
         }
     }
 }
