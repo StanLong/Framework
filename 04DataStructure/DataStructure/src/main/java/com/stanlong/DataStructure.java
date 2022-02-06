@@ -3,8 +3,7 @@ package com.stanlong;
 import lombok.*;
 
 /**
- * 二叉树遍历
- * 前序遍历 + 中序遍历 + 后续遍历
+ * 删除二叉树节点
  */
 public class DataStructure {
 
@@ -30,24 +29,13 @@ public class DataStructure {
         node3.setLeft(node6);
         node3.setRight(node7);
 
-        Node preResult = bt.preOrderSearch(5);
-        System.out.println("前序遍历查找结果: " + preResult.getId());
-
-        Node infixResult = bt.infixOrderSearch(5);
-        System.out.println("中序遍历查找结果: " + infixResult.getId());
-
-        Node postNode = bt.postOrderSearch(5);
-        System.out.println("后序序遍历查找结果: " + postNode.getId());
-
+        bt.preOrder(); // 前序遍历
+        System.out.println("--------------删除分割线--------------");
+        bt.delNode(100); // 删除节点7
+        bt.preOrder(); // 前序遍历
     }
 }
 
-// 创建节点
-// 可以类级别生成 Getter 和 Setter 方法， 也可以字段级别生成Getter 和 Setter 方法
-// @ToString： 辅助参数  exclude 和 of
-//      exclude 不生成{}中字段的 toString 方法
-//      of 只生成{}中字段的 toString 方法
-// RequiredArgsConstructor：对 final 修饰的字段 和加了 @NonNull 注解的字段生成有参构造函数
 @Getter
 @Setter
 @ToString(exclude = {"left", "right"})
@@ -58,61 +46,32 @@ class Node{
     private Node left; // 左指针
     private Node right;  // 右指针
 
-    // 前序遍历查找
-    public Node preOrderSearch(int id){
-        Node result = null;
-        if(this.id == id){
-            return this;
-        }
+    public void preOrder(){
+        System.out.println(this);
         if(this.left != null){
-            result = this.left.preOrderSearch(id);
-        }
-        if(result != null){
-            return result;
+            this.left.preOrder();
         }
         if(this.right != null){
-            result = this.right.preOrderSearch(id);
+            this.right.preOrder();
         }
-        return result;
     }
 
-    // 中序遍历查找
-    public Node infixOrderSearch(int id){
-        Node result = null;
+    // 删除节点
+    public void delNode(int id){
+        if(this.left != null && this.left.getId() == id){
+            this.left = null;
+            return;
+        }
+        if(this.right != null && this.right.getId() == id){
+            this.right = null;
+            return;
+        }
         if(this.left != null){
-            result = this.left.infixOrderSearch(id);
-        }
-        if(result != null){
-            return result;
-        }
-        if(this.id == id){
-            return this;
+            this.left.delNode(id);
         }
         if(this.right != null){
-            result = this.right.infixOrderSearch(id);
+            this.right.delNode(id);
         }
-        return result;
-    }
-
-    // 后续遍历查找
-    public Node postOrderSearch(int id){
-        Node result = null;
-        if(this.left != null){
-            result = this.left.postOrderSearch(id);
-        }
-        if(result != null){
-            return result;
-        }
-        if(this.right != null){
-            result = this.right.postOrderSearch(id);
-        }
-        if(result != null){
-            return result;
-        }
-        if(this.id == id){
-            return this;
-        }
-        return result;
     }
 }
 
@@ -121,30 +80,25 @@ class BinaryTree{
     @Setter
     private Node root; // 声明二叉树的根节点
 
-    // 前序遍历查找
-    public Node preOrderSearch(int id){
+    // 前序遍历
+    public void preOrder(){
+        if(this.root != null){
+            this.root.preOrder();
+        }else {
+            System.out.println("空树，没有节点");
+        }
+    }
+
+    // 删除节点
+    public void delNode(int id){
         if(root != null){
-            return root.preOrderSearch(id);
+            if(root.getId() == id){
+                root = null;
+            }else {
+                root.delNode(id);
+            }
         }else{
-            return null;
-        }
-    }
-
-    // 中序遍历查找
-    public Node infixOrderSearch(int id){
-        if(root != null){
-            return root.infixOrderSearch(id);
-        }else {
-            return null;
-        }
-    }
-
-    // 后续遍历查找
-    public Node postOrderSearch(int id){
-        if(root != null){
-            return root.postOrderSearch(id);
-        }else {
-            return null;
+            System.out.println("空树，不能删除");
         }
     }
 }
