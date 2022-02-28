@@ -7,40 +7,28 @@ import lombok.ToString;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 二叉排序树
+ * 平衡二叉树
  */
 public class DataStructure {
 
     public static void main(String[] args) throws Exception {
         int[] arr = {45, 12, 53, 3, 37, 100, 24, 61, 90, 78};
-        BinarySortTree bst = new BinarySortTree();
-        // 循环添加节点到二叉排序树
-        for(int i=0; i< arr.length; i++){
-            bst.add(new Node(arr[i]));
+        AVLTree avlTree = new AVLTree();
+        for(int i=0; i<arr.length; i++){
+            avlTree.add(new Node(arr[i]));
         }
-        // 中序遍历二叉排序树
-        bst.infixOrder();
+        System.out.println("------中序遍历------");
+        avlTree.infixOrder();
 
-        // 删除叶子节点
-//        System.out.println("--------删除叶子节点--------");
-//        bst.delNode(3);
-//        bst.delNode(24);
-//        bst.delNode(78);
-//        bst.infixOrder();
+        // 树的高度
+        System.out.println("树的高度: " + avlTree.getRoot().height());
 
-        // 删除的节点只有左子树或者只有右子树
-//        System.out.println("----删除的节点只有左子树或者只有右子树----");
-//        bst.delNode(37);
-//        bst.delNode(61);
-//        bst.infixOrder();
+        // 左子树的高度
+        System.out.println("左子树的高度: " + avlTree.getRoot().leftHeight());
 
-        // 删除的节点既有左子树，也有右子树
-        System.out.println("----删除的节点既有左子树，也有右子树----");
-        bst.delNode(12);
-        bst.infixOrder();
+        // 右子树的高度
+        System.out.println("右子树的高度: " + avlTree.getRoot().rightHeight());
     }
-
-
 }
 
 // Node 节点
@@ -122,12 +110,43 @@ class Node{
         return null;
     }
 
+    /**
+     * 返回当前节点为根节点时树的高度
+     * @return 树的高度
+     */
+    public int height(){
+        return Math.max(left == null ? 0: left.height(), right == null?0:right.height()) + 1;
+    }
+
+    /**
+     * 左子树的高度
+     * @return 左子树的高度
+     */
+    public int leftHeight(){
+        if(left == null){
+            return 0;
+        }
+        return left.height();
+    }
+
+    /**
+     * 右子树的高度
+     * @return 右子树的高度
+     */
+    public int rightHeight(){
+        if(right == null){
+            return 0;
+        }
+        return right.height();
+    }
+
 }
 
 /**
- * 二叉排序树
+ * 平衡二叉树
  */
-class BinarySortTree{
+class AVLTree{
+    @Getter
     private Node root;
 
     public void add(Node node){
