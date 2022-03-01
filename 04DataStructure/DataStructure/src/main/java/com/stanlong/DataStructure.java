@@ -12,7 +12,8 @@ import lombok.RequiredArgsConstructor;
 public class DataStructure {
 
     public static void main(String[] args) throws Exception {
-        int[] arr = {45, 12, 53, 3, 37, 100, 24, 61, 90, 78};
+        // int[] arr = {45, 12, 53, 3, 37, 100, 24, 61, 90, 78};
+        int[] arr = {45, 12, 53, 3, 37, 24};
         AVLTree avlTree = new AVLTree();
         for(int i=0; i<arr.length; i++){
             avlTree.add(new Node(arr[i]));
@@ -65,6 +66,14 @@ class Node{
             }else {
                 this.right.add(node);
             }
+        }
+
+        // 加入新的节点后，判断树是否平衡
+        if(leftHeight() - rightHeight() >= 2){ // 左比右高， 进行右旋转
+            rightRotate();
+        }
+        if(leftHeight() - rightHeight() <= -2) { // 右比左高，进行左旋转
+
         }
     }
 
@@ -138,6 +147,37 @@ class Node{
             return 0;
         }
         return right.height();
+    }
+
+    /**
+     * 右旋转
+     */
+    public void rightRotate(){
+        // 1. 创建一个新的节点，值等于当前节点的值
+        Node newRight = new Node(value);
+
+        // 2. 把新节点的右子树，设置为当前节点的右子树
+        newRight.right = right;
+
+        // 3. 把新节点的左子树设置为当前节点左子树的右子树
+        newRight.left = left.right;
+
+        // 4. 把当前节点的值换为左子节点的值
+        value = left.value;
+
+        // 5. 把当前节点的左子树设置为左子树的左子树
+        left = left.left;
+
+        // 6. 把当且节点的右子树设置为新节点
+        right = newRight;
+
+    }
+
+    /**
+     * 左旋转
+     */
+    public void leftRotate(){
+
     }
 
 }
