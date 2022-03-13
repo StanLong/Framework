@@ -1,38 +1,31 @@
 package com.stanlong;
 
 /**
- * 分治算法最佳实践
- * 汉诺塔问题
- * 步骤:
- * 1. 先把最上面的盘从A移到B. 移动过程中会使用到C A->B
- * 2. 把最下面的盘移动到C A-C
- * 3. 把B的所有盘移动到C， 移动过程会使用到A B->C
+ * 动态规划算法
+ * 背包问题
  */
 public class DataStructure {
 
     public static void main(String[] args) throws Exception {
-        haniTower(3, 'A', 'B', 'C');
-    }
+        // 准备工作，声明变量
+        int[] volume = {2, 3, 4, 5}; // 物品的体积
+        int[] price = {3, 4, 5, 6}; // 物品的价值
+        int capacity = 8; // 背包的容量
+        int n = price.length; // 物品的个数
 
-    /**
-     * 汉诺塔问题
-     * @param num 盘子的数目
-     * @param a 起始盘
-     * @param b 辅助盘
-     * @param c 目的盘
-     */
-    public static void haniTower(int num, char a, char b, char c){
-        if(num == 1){ // 如果只有一个盘子
-            System.out.println("第1个盘从" + a + "->" + c);
-        }else{
-            // 如果有 num >= 2 的情况， 可以只看成两个盘。 第一个盘是最下面的盘， 第二个盘是上面的所有盘
-            // 1. 先把最上面的盘从A移到B. 移动过程中会使用到C
-            haniTower(num-1, a, c, b);
-            // 2. 把最下面的盘移动到C
-            System.out.println("第" + num + "个盘从" + a + "->" + c);
-            // 3. 把B的所有盘移动到C， 移动过程会使用到A
-            haniTower(num-1, b, a, c);
+        // 创建一个二维数组
+        // v[i][j] 表示在容量 i 的背包中能装入物品 j 的最大价值
+        int[][] v = new int[capacity+1][n+1];
 
+        // 初始化二维数组第一行和第一列
+        for(int i=0; i<capacity; i++){
+            v[0][capacity] = 0;
         }
+        for(int i=0; i<n; i++){
+            v[i][0] = 0;
+        }
+
+        //
+
     }
 }

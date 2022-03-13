@@ -5,8 +5,8 @@ package com.stanlong.leetcode;
  */
 public class LeetCode {
     public static void main(String[] args) {
-        int[] nums1 = {1,2};
-        int[] nums2 = {2};
+        int[] nums1 = {3};
+        int[] nums2 = {1,2,4};
         Solution solution = new Solution();
         double result = solution.findMedianSortedArrays(nums1, nums2);
         System.out.println(result);
@@ -76,7 +76,7 @@ class Solution {
         }else{
             midVal1 = Integer.MAX_VALUE;
         }
-        if(j + k/2 - 1 < nums1.length){
+        if(j + k/2 - 1 < nums2.length){
             midVal2 = nums2[j + k/2 -1];
         }else {
             midVal2 = Integer.MAX_VALUE;
