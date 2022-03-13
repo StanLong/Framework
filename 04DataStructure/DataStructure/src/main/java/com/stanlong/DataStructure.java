@@ -1,36 +1,38 @@
 package com.stanlong;
 
 /**
- * 二分查找， 非递归方式实现
+ * 分治算法最佳实践
+ * 汉诺塔问题
+ * 步骤:
+ * 1. 先把最上面的盘从A移到B. 移动过程中会使用到C A->B
+ * 2. 把最下面的盘移动到C A-C
+ * 3. 把B的所有盘移动到C， 移动过程会使用到A B->C
  */
 public class DataStructure {
-    public static void main(String[] args) {
-        int[] array = {2, 3, 4, 5, 15, 19, 26, 27, 36, 38, 44, 46, 47, 48, 50};
-        int target = 51;
-        int index = binarySearch(array, target);
-        if(index == -1){
-            System.out.println("没有找到目标值");
+
+    public static void main(String[] args) throws Exception {
+        haniTower(3, 'A', 'B', 'C');
+    }
+
+    /**
+     * 汉诺塔问题
+     * @param num 盘子的数目
+     * @param a 起始盘
+     * @param b 辅助盘
+     * @param c 目的盘
+     */
+    public static void haniTower(int num, char a, char b, char c){
+        if(num == 1){ // 如果只有一个盘子
+            System.out.println("第1个盘从" + a + "->" + c);
         }else{
-            System.out.println("目标值的索引是: " + index);
+            // 如果有 num >= 2 的情况， 可以只看成两个盘。 第一个盘是最下面的盘， 第二个盘是上面的所有盘
+            // 1. 先把最上面的盘从A移到B. 移动过程中会使用到C
+            haniTower(num-1, a, c, b);
+            // 2. 把最下面的盘移动到C
+            System.out.println("第" + num + "个盘从" + a + "->" + c);
+            // 3. 把B的所有盘移动到C， 移动过程会使用到A
+            haniTower(num-1, b, a, c);
+
         }
     }
-
-    public static int binarySearch(int[] nums, int target){
-        int left = 0;
-        int right = nums.length-1;
-        int mid;
-        while (left <= right){
-            mid = (left + right) / 2;
-            if(target == nums[mid]){
-                return mid;
-            }else if(target > nums[mid]){
-                left = mid+1;
-            }else if(target < nums[mid]){
-                right = mid-1;
-            }
-        }
-        return -1;
-    }
-
-
 }
