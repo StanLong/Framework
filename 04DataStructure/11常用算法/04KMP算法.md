@@ -24,7 +24,13 @@
 所以KMP算法可以简单理解为：
 
 - 先得到子串的部分匹配表
+
 - 按照子串的最大公共元素长度移动前缀到后缀的位置上
+  
+  ![](../doc/63.png)
+  
+  ![](.././doc/64.png)
+  
   - 上面那段话优点抽象，看这个视频 https://www.bilibili.com/video/BV1jb411V78H?spm_id_from=333.337.search-card.all.click
 
 ```java
