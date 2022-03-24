@@ -12,25 +12,23 @@ public class DataStructure {
     private final static int INF = Integer.MAX_VALUE;
 
     public static void main(String[] args) throws Exception {
-        char[] vertex = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+        char[] vertex = {'1', '2', '3', '4', '5', '6'};
         int[][] weight = {
-                /*A*//*B*//*C*//*D*//*E*//*F*//*G*/
-                /*A*/ {   0,  12, INF, INF, INF,  16,  14},
-                /*B*/ {  12,   0,  10, INF, INF,   7, INF},
-                /*C*/ { INF,  10,   0,   3,   5,   6, INF},
-                /*D*/ { INF, INF,   3,   0,   4, INF, INF},
-                /*E*/ { INF, INF,   5,   4,   0,   2,   8},
-                /*F*/ {  16,   7,   6, INF,   2,   0,   9},
-                /*G*/ {  14, INF, INF, INF,   8,   9,   0}};
-
+                       /*1*//*2*//*3*//*4*//*5*//*6*/
+                /*1*/ {  0,   6,   1,   5,  INF, INF},
+                /*2*/ {  6,   0,   5,  INF,  3,  INF},
+                /*3*/ {  1,   5,   0,   5,   6,   4},
+                /*4*/ {  5,  INF,  5,   0,  INF,  2},
+                /*5*/ { INF, INF,  5,   4,   0,   6},
+                /*6*/ { INF, INF,  4,   2,   6,   0}};
         System.out.println("最终结果如下：\n" + kruskal(vertex, weight));
     }
 
     /**
      * 封装kruskal算法
-     * @param vertex
-     * @param weight
-     * @return
+     * @param vertex 顶点列表
+     * @param weight 顶点边的权值
+     * @return 最短路径
      */
     public static List<Data> kruskal(char[] vertex, int[][] weight) {
         List<Data> dataList = getSort(vertex, weight);
@@ -81,8 +79,8 @@ public class DataStructure {
     /**
      * 算法核心点，获取下标顶点为i的顶点的终点
      * @param connections 连接点的集合
-     * @param i
-     * @return
+     * @param i 下标
+     * @return 下标顶点为i的顶点的终点
      */
     public static int getEnd(int[] connections, int i) {
         while (connections[i] != 0) {
@@ -93,9 +91,9 @@ public class DataStructure {
 
     /**
      * 获得某个点对应的数组下标
-     * @param vertex
-     * @param value
-     * @return
+     * @param vertex 顶点
+     * @param value 值
+     * @return 某个点对应的数组下标
      */
     public static int getPosition(char[] vertex, char value) {
         if (vertex == null) {
@@ -109,6 +107,12 @@ public class DataStructure {
         return -1;
     }
 
+    /**
+     * 边排序
+     * @param vertex 顶点数组
+     * @param weight 顶点边的权
+     * @return 排序后的边列表
+     */
     public static List<Data> getSort(char[] vertex, int[][] weight) {
         List<Data> dataList = new ArrayList<>();
         for (int i = 0; i < weight.length; i++) {
@@ -129,7 +133,7 @@ public class DataStructure {
      * @param mGraph 图
      */
     public static void showGraph(MGraph mGraph) {
-        for (int[] link : mGraph.weight) {
+        for (int[] link : mGraph.matrix) {
             for (int x : link) {
                 System.out.printf("%5s\t", x);
             }
@@ -155,7 +159,7 @@ class MGraph {
     }
 }
 
-class Data implements Comparable{
+class Data implements Comparable<Object>{
 
     // 边的起点
     char start;
