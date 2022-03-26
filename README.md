@@ -7,3 +7,4 @@
 
 leetcode 解题网站: https://www.cnblogs.com/grandyang/p/4606334.html
 
+设计模式：https://gitee.com/seekerrc/notes/blob/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.md
