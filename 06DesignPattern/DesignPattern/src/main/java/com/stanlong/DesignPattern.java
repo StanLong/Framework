@@ -1,73 +1,35 @@
 package com.stanlong;
 
-import lombok.Setter;
-
+/**
+ * 对象模式适配器
+ */
 public class DesignPattern {
     public static void main(String[] args) {
-        Builder builder = new ConcreteBuilder();
-        Director director = new Director(builder);
-        Product product = director.construct();
-        product.show();
+        System.out.println("对象适配器模式测试：");
+        Adapter adapter = new Adapter();
+        Target target = new ObjectAdapter(adapter);
+        target.request();
     }
 }
 
-/**
- * 1. 产品角色：包含多个组成部件的复杂对象。
- */
-@Setter
-class Product {
-    private String partA;
-    private String partB;
-    private String partC;
-
-    public void show() {
-        System.out.println("产品由A，B，C三部分组成");
+//目标接口
+interface Target{
+    public void request();
+}
+//适配者接口
+class Adapter{
+    public void specificRequest()    {
+        System.out.println("适配者中的业务代码被调用！");
     }
 }
 
-/**
- * 2. 抽象建造者：包含创建产品各个子部件的抽象方法。
- */
-abstract class Builder {
-    //创建产品对象
-    protected Product product = new Product();
-    public abstract void buildPartA();
-    public abstract void buildPartB();
-    public abstract void buildPartC();
-    //返回产品对象
-    public Product getResult() {
-        return product;
+//对象适配器类
+class ObjectAdapter implements Target{
+    private Adapter adapter;
+    public ObjectAdapter(Adapter adapter)    {
+        this.adapter=adapter;
     }
-}
-
-/**
- * 3.  具体建造者：实现了抽象建造者接口。
- */
-class ConcreteBuilder extends Builder {
-    public void buildPartA() {
-        product.setPartA("建造 PartA");
-    }
-    public void buildPartB() {
-        product.setPartB("建造 PartB");
-    }
-    public void buildPartC() {
-        product.setPartC("建造 PartC");
-    }
-}
-
-/**
- *  指挥者：调用建造者中的方法完成复杂对象的创建
- */
-class Director {
-    private Builder builder;
-    public Director(Builder builder) {
-        this.builder = builder;
-    }
-    //产品构建与组装方法
-    public Product construct() {
-        builder.buildPartA();
-        builder.buildPartB();
-        builder.buildPartC();
-        return builder.getResult();
+    public void request()    {
+        adapter.specificRequest();
     }
 }
