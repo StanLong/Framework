@@ -1,35 +1,50 @@
 package com.stanlong;
 
 /**
- * 对象模式适配器
+ * 接口适配器
  */
 public class DesignPattern {
     public static void main(String[] args) {
-        System.out.println("对象适配器模式测试：");
-        Adapter adapter = new Adapter();
-        Target target = new ObjectAdapter(adapter);
-        target.request();
+        AbsAdapter absAdapter = new AbsAdapter() {
+            @Override
+            public void operation1() {
+                System.out.println("使得匿名内部类实现 operation1");
+            }
+
+            @Override
+            public void operation2() {
+                System.out.println("使得匿名内部类实现 operation2");
+            }
+        };
+        absAdapter.operation1();
+        absAdapter.operation2();
+        absAdapter.operation3();
+        absAdapter.operation4();
     }
 }
 
-//目标接口
-interface Target{
-    public void request();
-}
-//适配者接口
-class Adapter{
-    public void specificRequest()    {
-        System.out.println("适配者中的业务代码被调用！");
-    }
+interface Interface{
+    public void operation1();
+    public void operation2();
+    public void operation3();
+    public void operation4();
 }
 
-//对象适配器类
-class ObjectAdapter implements Target{
-    private Adapter adapter;
-    public ObjectAdapter(Adapter adapter)    {
-        this.adapter=adapter;
+abstract class AbsAdapter implements Interface{
+    @Override
+    public void operation1(){
+        System.out.println("默认实现方法1");
     }
-    public void request()    {
-        adapter.specificRequest();
+    @Override
+    public void operation2(){
+        System.out.println("默认实现方法2");
+    }
+    @Override
+    public void operation3(){
+        System.out.println("默认实现方法3");
+    }
+    @Override
+    public void operation4(){
+        System.out.println("默认实现方法4");
     }
 }
