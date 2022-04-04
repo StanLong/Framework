@@ -1,50 +1,41 @@
 package com.stanlong;
 
 /**
- * 接口适配器
+ * 桥接模式
  */
 public class DesignPattern {
     public static void main(String[] args) {
-        AbsAdapter absAdapter = new AbsAdapter() {
-            @Override
-            public void operation1() {
-                System.out.println("使得匿名内部类实现 operation1");
-            }
-
-            @Override
-            public void operation2() {
-                System.out.println("使得匿名内部类实现 operation2");
-            }
-        };
-        absAdapter.operation1();
-        absAdapter.operation2();
-        absAdapter.operation3();
-        absAdapter.operation4();
+        Implementor imple = new ConcreteImplementorA();
+        Abstraction abs = new RefinedAbstraction(imple);
+        abs.Operation();
     }
 }
 
-interface Interface{
-    public void operation1();
-    public void operation2();
-    public void operation3();
-    public void operation4();
+//实现化角色
+interface Implementor {
+    public void OperationImpl();
 }
-
-abstract class AbsAdapter implements Interface{
-    @Override
-    public void operation1(){
-        System.out.println("默认实现方法1");
+//具体实现化角色
+class ConcreteImplementorA implements Implementor {
+    public void OperationImpl() {
+        System.out.println("具体实现化(Concrete Implementor)角色被访问");
     }
-    @Override
-    public void operation2(){
-        System.out.println("默认实现方法2");
+}
+//抽象化角色
+abstract class Abstraction {
+    protected Implementor imple;
+    protected Abstraction(Implementor imple) {
+        this.imple = imple;
     }
-    @Override
-    public void operation3(){
-        System.out.println("默认实现方法3");
+    public abstract void Operation();
+}
+//扩展抽象化角色
+class RefinedAbstraction extends Abstraction {
+    protected RefinedAbstraction(Implementor imple) {
+        super(imple);
     }
-    @Override
-    public void operation4(){
-        System.out.println("默认实现方法4");
+    public void Operation() {
+        System.out.println("扩展抽象化(Refined Abstraction)角色被访问");
+        imple.OperationImpl();
     }
 }
