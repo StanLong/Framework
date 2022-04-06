@@ -8,3 +8,5 @@
 leetcode 解题网站: https://www.cnblogs.com/grandyang/p/4606334.html
 
 设计模式：http://c.biancheng.net/view/1354.html
+
+设计模式： https://www.yuque.com/u21195183/fnz31h/cix9c0
