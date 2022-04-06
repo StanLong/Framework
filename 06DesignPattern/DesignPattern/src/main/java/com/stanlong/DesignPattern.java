@@ -1,68 +1,76 @@
 package com.stanlong;
 
+import java.util.ArrayList;
+
 /**
- * 装饰器模式
- * 给只能拍照的相机加上美颜的滤镜
+ * 组合模式
+ * 按照树来理解
  */
 public class DesignPattern {
     public static void main(String[] args) {
-        Component p = new ConcreteComponent();
-        p.operation();
-        System.out.println("---------------------------------");
-        Component d1 = new ConcreteDecorator1(p);
-        d1.operation();
-        System.out.println("---------------------------------");
-        Component d2 = new ConcreteDecorator2(new ConcreteDecorator1(new ConcreteComponent()));
-        d2.operation();
+        Component c0 = new Composite();
+        Component c1 = new Composite();
+        Component leaf1 = new Leaf("1");
+        Component leaf2 = new Leaf("2");
+        Component leaf3 = new Leaf("3");
+        c0.add(leaf1);
+        c0.add(c1);
+        c1.add(leaf2);
+        c1.add(leaf3);
+        c0.operation();
     }
 }
 
-
-//抽象构件角色
+/**
+ * 抽象构件角色
+ * 主要作用是为树叶构件和树枝构件声明公共接口
+ */
 interface Component {
+    public void add(Component c);
+    public void remove(Component c);
+    public Component getChild(int i);
     public void operation();
 }
 
-//具体构件角色
-class ConcreteComponent implements Component {
+/**
+ * 树枝构件
+ * 是组合中的分支节点对象，它有子节点，用于继承和实现抽象构件
+ */
+class Composite implements Component {
+    private ArrayList<Component> children = new ArrayList<Component>();
+    public void add(Component c) {
+        children.add(c);
+    }
+    public void remove(Component c) {
+        children.remove(c);
+    }
+    public Component getChild(int i) {
+        return children.get(i);
+    }
     public void operation() {
-        System.out.println("拍照");
+        for (Object obj : children) {
+            ((Component) obj).operation();
+        }
     }
 }
 
-//抽象装饰角色
-abstract class Decorator implements Component {
-    private Component component;
-
-    public Decorator(Component component) {
-        this.component = component;
+/**
+ * 树叶构件
+ * 是组合中的叶节点对象，它没有子节点，用于继承或实现抽象构件
+ */
+class Leaf implements Component {
+    private String name;
+    public Leaf(String name) {
+        this.name = name;
     }
-
+    public void add(Component c) {
+    }
+    public void remove(Component c) {
+    }
+    public Component getChild(int i) {
+        return null;
+    }
     public void operation() {
-        component.operation();
-    }
-}
-
-//具体装饰角色 - 给相机加个美颜效果
-class ConcreteDecorator1 extends Decorator {
-    public ConcreteDecorator1(Component component) {
-        super(component);
-    }
-
-    public void operation() {
-        super.operation();
-        System.out.println("给能拍照的相机再添加一个美颜效果");
-    }
-}
-
-//具体装饰角色 - 给相机加个美颜效果
-class ConcreteDecorator2 extends Decorator {
-    public ConcreteDecorator2(Component component) {
-        super(component);
-    }
-
-    public void operation() {
-        super.operation();
-        System.out.println("给能拍照的相机再添加一个滤镜效果");
+        System.out.println("树叶" + name + "：被访问！");
     }
 }
