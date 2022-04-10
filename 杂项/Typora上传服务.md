@@ -1,1 +1,0 @@
-![Snipaste_2022-04-10_10-39-08](C:\Users\Administrator\Desktop\Snipaste_2022-04-10_10-39-08.png)
