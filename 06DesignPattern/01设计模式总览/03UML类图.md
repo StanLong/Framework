@@ -6,7 +6,7 @@ Unified modeling language UML (统一建模语言)
 
 UML 本身是==一套符号的规定==，就像数学符号和化学符号一样，这些符号用于描述软件模型中的各个元素和他们之间的关系。
 
-![](../doc/04.png)
+![img](https://gitee.com/vectorv/Framework/raw/master/06DesignPattern/doc/04.png)
 
 ## 类、接口和类图
 
