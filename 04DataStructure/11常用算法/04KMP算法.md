@@ -19,7 +19,7 @@
 
 部分匹配值就是前缀和后缀的最长的共有元素的长度
 
-![](.././doc/62.png)
+![](https://cdn.jsdelivr.net/gh/StanLong/Framework/04DataStructure/doc/62.png)
 
 所以KMP算法可以简单理解为：
 
@@ -29,7 +29,7 @@
   
   ![](../doc/63.png)
   
-  ![](.././doc/64.png)
+  ![](https://cdn.jsdelivr.net/gh/StanLong/Framework/04DataStructure/doc/64.png)
   
   - 上面那段话优点抽象，看这个视频 https://www.bilibili.com/video/BV1jb411V78H?spm_id_from=333.337.search-card.all.click
 
