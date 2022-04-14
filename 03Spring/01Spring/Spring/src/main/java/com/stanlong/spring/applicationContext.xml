@@ -8,6 +8,6 @@
 			id:用于之后从Spring 容器中获得实例时使用的
 			class:需要创建实例的全限定类名
 	-->
-	<bean id="userServiceId" class="com.stanlong.a_ioc.UserServiceImpl"></bean>
+	<bean id="userServiceId" class="com.stanlong.spring.UserServiceImpl"></bean>
 	
 </beans>

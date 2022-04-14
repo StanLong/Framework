@@ -1,117 +1,90 @@
 package com.stanlong;
 
+
+import java.util.Random;
+
 /**
- * 访问者模式
- * 以系统软件升级为例
+ * 职责链模式
+ * 以请假审批流程为例
  */
 public class DesignPattern {
     public static void main(String[] args) {
-        Robot robot = new Robot();
-        System.out.println("没升级前");
-        robot.calc();
+        // 声明处理流程的各节点
+        PmLeaveApplyHandler pmLeaveApplyHandler = new PmLeaveApplyHandler();
+        DmLeaveApplyHandler dmLeaveApplyHandler = new DmLeaveApplyHandler();
+        GmLeaveApplyHandler gmLeaveApplyHandler = new GmLeaveApplyHandler();
 
-        // 升级包
-        Visitor updatePack = new UpdateVisitor();
-        System.out.println("升级后");
-        robot.accept(updatePack);
-        robot.calc();
+        // 声明责任链
+        pmLeaveApplyHandler.setHandler(dmLeaveApplyHandler);
+        dmLeaveApplyHandler.setHandler(gmLeaveApplyHandler);
+
+        Integer day = 10;
+        System.out.println("张三请假：" + day + "天");
+        pmLeaveApplyHandler.handlerApply(day);
     }
 }
 
 /**
- * 抽象访问者
- * 定义一个访问具体元素的接口，为每个具体元素类对应一个访问操作 visit() ，
- * 该操作中的参数类型标识了被访问的具体元素
+ * 抽象处理者（Handler）角色：
+ * 定义一个处理请求的接口，包含抽象处理方法和一个后继连接
  */
-interface Visitor {
-    void visitCPU(CPU cpu);
-    void visitHardDisk(HardDisk hardDisk);
+abstract class LeaveApplyHandler {
+    protected Random random = new Random(10);
+    // 定义下一个处理者的引用
+    protected LeaveApplyHandler handler;
+
+    // 这是下一个处理者
+    public void setHandler(LeaveApplyHandler handler) {
+        this.handler = handler;
+    }
+
+    // 处理逻辑方法
+    public abstract void handlerApply(Integer day);
 }
 
 /**
- * 具体访问者
- * 实现抽象访问者角色中声明的各个访问操作，确定访问者访问一个元素时该做什么
+ * 具体处理者（Concrete Handler）角色：
+ * 实现抽象处理者的处理方法，判断能否处理本次请求，如果可以处理请求则处理，否则将该请求转给它的后继者
+ * 项目经理处理类
  */
-class UpdateVisitor implements Visitor { // 软件升级包
+class PmLeaveApplyHandler extends LeaveApplyHandler {
     @Override
-    public void visitCPU(CPU cpu) {
-        cpu.command = "1+1=2";
+    public void handlerApply(Integer day) {
+        if (day <= 3) {
+            String result = (random.nextInt(3)) % 2 == 0 ? "通过" : "不通过";
+            System.out.println("项目经理审批，结果：" + result);
+        } else {
+            handler.handlerApply(day);
+        }
     }
+}
 
+/**
+ * 具体处理者（Concrete Handler）角色：
+ * 实现抽象处理者的处理方法，判断能否处理本次请求，如果可以处理请求则处理，否则将该请求转给它的后继者
+ * 部门经理处理类：
+ */
+class DmLeaveApplyHandler extends LeaveApplyHandler {
     @Override
-    public void visitHardDisk(HardDisk hardDisk) {
-        hardDisk.command = "存储： 1+1=2";
+    public void handlerApply(Integer day) {
+        if (day <= 5) {
+            String result = (random.nextInt(5)) % 3 == 0 ? "通过" : "不通过";
+            System.out.println("部门经理审批，结果：" + result);
+        } else {
+            handler.handlerApply(day);
+        }
     }
 }
 
 /**
- * 抽象元素类
- * 声明一个包含接受操作 accept() 的接口，被接受的访问者对象作为 accept() 方法的参数。
+ * 具体处理者（Concrete Handler）角色：
+ * 实现抽象处理者的处理方法，判断能否处理本次请求，如果可以处理请求则处理，否则将该请求转给它的后继者
+ * 总经理处理类：
  */
-abstract class Hardware { // 硬件
-    String command;
-
-    public Hardware(String command) {
-        this.command = command;
-    }
-
-    public void run(){
-        System.out.println(command);
-    }
-
-    public abstract void accept(Visitor visitor); // 对外暴露接口
-}
-
-/**
- * 具体元素类 ： CPU
- * 实现抽象元素角色提供的 accept() 操作，其方法体通常都是 visitor.visit(this) ，另外具体元素中可能还包含本身业务逻辑的相关操作。
- */
-class CPU extends Hardware {
-    public CPU(String command) {
-        super(command);
-    }
-
+class GmLeaveApplyHandler extends LeaveApplyHandler {
     @Override
-    public void accept(Visitor visitor) {
-        visitor.visitCPU(this);
-    }
-}
-
-/**
- * 具体元素类
- * 磁盘
- */
-class HardDisk extends Hardware {
-    public HardDisk(String command) {
-        super(command);
-    }
-
-    @Override
-    public void accept(Visitor visitor) {
-        visitor.visitHardDisk(this);
-    }
-}
-
-/**
- * 对象结构角色
- * 是一个包含元素角色的容器，提供让访问者对象遍历容器中的所有元素的方法，通常由 List、Set、Map 等聚合类实现
- */
-class Robot {
-    private HardDisk hardDisk;
-    private CPU cpu;
-
-    public Robot(){
-        hardDisk = new HardDisk("存储 1+1=1");
-        cpu = new CPU("1+1=1");
-    }
-
-    public void  calc(){
-        cpu.run();
-        hardDisk.run();
-    }
-
-    public void accept(Visitor visitor){
-        cpu.accept(visitor);
-        hardDisk.accept(visitor);
+    public void handlerApply(Integer day) {
+        String result = (random.nextInt(3)) % 2 == 0 ? "通过" : "不通过";
+        System.out.println("项目经理审批，结果：" + result);
     }
 }
