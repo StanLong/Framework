@@ -75,6 +75,14 @@ UML 将事物之间的联系归纳为 6 种，并用对应的图形类表示。�
 
 ![](https://cdn.jsdelivr.net/gh/StanLong/Framework/06DesignPattern/doc/33.png)
 
+```java
+class A{}
+
+class B{
+	public void abc(A a){}//在B类中的没有A的属性，而是以形参的方式引入
+}
+```
+
 ### 2. 关联关系
 
 关联（Association）关系是对象之间的一种引用关系，用于表示一类对象与另一类对象之间的联系，如老师和学生、师傅和徒弟、丈夫和妻子等。关联关系是类与类之间最常用的一种关系，分为一般关联关系、聚合关系和组合关系。我们先介绍一般关联。
@@ -84,6 +92,14 @@ UML 将事物之间的联系归纳为 6 种，并用对应的图形类表示。�
 在代码中通常将一个类的对象作为另一个类的成员变量来实现关联关系。如下是老师和学生的关系图，每个老师可以教多个学生，每个学生也可向多个老师学，他们是双向关联。
 
 ![](https://cdn.jsdelivr.net/gh/StanLong/Framework/06DesignPattern/doc/34.png)
+
+```java
+class A{}
+
+class B{
+	A a;//成员变量引入了A类
+}
+```
 
 ### 3. 聚合关系
 
@@ -95,6 +111,17 @@ UML 将事物之间的联系归纳为 6 种，并用对应的图形类表示。�
 
 ![](.././doc/35.png)
 
+```java
+class A{}
+
+class B{
+    A a;//成员变量引入了A类
+	B(A a){
+        this.a = a;
+	}
+}
+```
+
 ### 4.组合关系
 
 组合（Composition）关系也是关联关系的一种，也表示类之间的整体与部分的关系，但它是一种更强烈的聚合关系，是 cxmtains-a 关系。
@@ -105,6 +132,17 @@ UML 将事物之间的联系归纳为 6 种，并用对应的图形类表示。�
 
 ![](https://cdn.jsdelivr.net/gh/StanLong/Framework/06DesignPattern/doc/36.png)
 
+```java
+class A{}
+
+class B{
+    A a;//成员变量引入了A类
+	B(){
+        this.a = new A();
+	}
+}
+```
+
 ### 5.泛化关系
 
 泛化（Generalization）关系是对象之间耦合度最大的一种关系，表示一般与特殊的关系，是父类与子类之间的关系，是一种继承关系，是 is-a 的关系。
@@ -113,6 +151,12 @@ UML 将事物之间的联系归纳为 6 种，并用对应的图形类表示。�
 
 ![](https://cdn.jsdelivr.net/gh/StanLong/Framework/06DesignPattern/doc/37.png)
 
+```java
+class A{}
+
+class B extends A{}//B继承了A中的所有的方法和属性，对于私有的方法和属性，子类只能是拥有，但无法直接使用
+```
+
 ### 6.实现关系
 
 实现（Realization）关系是接口与实现类之间的关系。在这种关系中，类实现了接口，类中的操作实现了接口中所声明的所有的抽象操作。
@@ -120,6 +164,12 @@ UML 将事物之间的联系归纳为 6 种，并用对应的图形类表示。�
 在 UML 类图中，实现关系使用带空心三角箭头的虚线来表示，箭头从实现类指向接口。例如，汽车和船实现了交通工具，其类图如下所示。
 
 ![](https://cdn.jsdelivr.net/gh/StanLong/Framework/06DesignPattern/doc/38.png)
+
+```java
+interface A{}
+
+class B implements A{}//类B实现了接口A，使用关键自implements
+```
 
 ## 类关系记忆技巧
 
