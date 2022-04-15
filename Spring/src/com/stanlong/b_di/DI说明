@@ -1,7 +1,0 @@
-依赖：一个对象需要使用另一个对象
-注入：通过 setter 方法进行另一个对象实例设置
-
-模拟Spring 创建过程:
-1、创建service实例: BookService bookService = new BookServiceImpl()   --》IoC	<bean>
-2、创建dao实例：BookDao bookDao = new BookDaoImpl()                    --》IoC
-3、将dao设置给service: bookService.setBookDao(bookDao)                --》DI		<property>
