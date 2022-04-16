@@ -3,11 +3,40 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         				   http://www.springframework.org/schema/beans/spring-beans.xsd">
-        				   
-	<!-- 将静态工厂创建的实例交给Spring 
-		class: 确定静态工厂全限定类名
-		factory-method: 确定静态方法名
+
+	<!-- setter方法注入
+		*普通数据
+			<property name="" value""/>
+			等效于
+			<property name="">
+				<value></value>
+			</property>
+		*引用数据
+			<property name="" ref=""/>
+			等效于
+			<property name="">
+				<ref bean="">
+			</property>
 	-->
-	<bean id="bookServiceId" class="com.stanlong.factory.MyBeanFactory" factory-method="createBookService"></bean>
-	
+
+	<!-- 创建person -->
+	<bean id="personId" class="com.stanlong.bean.Person">
+		<property name="pname" value="stanlong"></property>
+		<property name="age">
+			<value>28</value>
+		</property>
+		<property name="homeAddr" ref="homeAddrId"></property>
+		<property name="companyAddr">
+			<ref bean="companyAddrId"/>
+		</property>
+	</bean>
+
+	<bean id="homeAddrId" class="com.stanlong.bean.Address">
+		<property name="addr" value="江苏省南京市"></property>
+		<property name="tel" value="17512577346"></property>
+	</bean>
+	<bean id="companyAddrId" class="com.stanlong.bean.Address">
+		<property name="addr" value="江宁大学城"></property>
+		<property name="tel" value="15348247800"></property>
+	</bean>
 </beans>
