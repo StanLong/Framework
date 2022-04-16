@@ -1,42 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
         				   http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- setter方法注入
-		*普通数据
-			<property name="" value""/>
-			等效于
-			<property name="">
-				<value></value>
-			</property>
-		*引用数据
-			<property name="" ref=""/>
-			等效于
-			<property name="">
-				<ref bean="">
-			</property>
-	-->
-
-	<!-- 创建person -->
-	<bean id="personId" class="com.stanlong.bean.Person">
-		<property name="pname" value="stanlong"></property>
-		<property name="age">
-			<value>28</value>
+	<!--
+	集合的注入都是给 <property> 添加子标签
+		数组: <array>
+		List: <list>
+		Set: <set>
+		Map: <map>
+		Properties: <props>
+	 -->
+	<bean id="collDataId" class="com.stanlong.bean.CollData">
+		<property name="arrayData">
+			<array>
+				<value>张三</value>
+				<value>李四</value>
+				<value>王五</value>
+			</array>
 		</property>
-		<property name="homeAddr" ref="homeAddrId"></property>
-		<property name="companyAddr">
-			<ref bean="companyAddrId"/>
-		</property>
-	</bean>
 
-	<bean id="homeAddrId" class="com.stanlong.bean.Address">
-		<property name="addr" value="江苏省南京市"></property>
-		<property name="tel" value="17512577346"></property>
-	</bean>
-	<bean id="companyAddrId" class="com.stanlong.bean.Address">
-		<property name="addr" value="江宁大学城"></property>
-		<property name="tel" value="15348247800"></property>
+		<property name="listData">
+			<list>
+				<value>赵六</value>
+				<value>陈七</value>
+				<value>朱八</value>
+			</list>
+		</property>
+
+		<property name="setData">
+			<set>
+				<value>曾小贤</value>
+				<value>吕子乔</value>
+				<value>张伟</value>
+			</set>
+		</property>
+		<property name="mapData">
+			<map>
+				<entry key="战狼" value="吴京"></entry>
+				<entry key="流浪地球" value="郭帆"></entry>
+				<entry key="三体" value="刘慈欣"></entry>
+			</map>
+		</property>
+		<property name="propsData">
+			<props>
+				<prop key="数据代表">肖刘林</prop>
+				<prop key="华为接口人">范建斌</prop>
+			</props>
+		</property>
 	</bean>
 </beans>

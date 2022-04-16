@@ -1,3 +1,8 @@
+# 装配Bean基于XML
+
+## 集合注入
+
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -13,7 +18,7 @@
 		Map: <map>
 		Properties: <props> 
 	 -->
-	<bean id="collDataId" class="com.stanlong.j_coll.CollData">
+	<bean id="collDataId" class="com.stanlong.bean.CollData">
 		<property name="arrayData">
 			<array>
 				<value>张三</value>
@@ -52,3 +57,54 @@
 		</property>
 	</bean>
 </beans>
+```
+
+```java
+package com.stanlong.j_coll;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class CollData {
+
+	private String[] arrayData;
+	private List<String> listData;
+	private Set<String> setData;
+	private Map<String, String> mapData;
+	private Properties propsData;
+	
+}
+```
+
+```java
+package com.stanlong.j_coll;
+
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class TestColl {
+
+	@Test
+	public void demo01(){
+		String xmlPath = "applicationContext.xml";
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(xmlPath);
+		CollData collData = applicationContext.getBean("collDataId", CollData.class);
+		System.out.println(collData);	
+	}	
+}
+```
+
+
+
+
+
