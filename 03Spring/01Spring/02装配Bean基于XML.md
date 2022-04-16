@@ -208,7 +208,7 @@ public class TestStaticFactory {
 
 - FactoryBean：是一个特殊的bean，具有工厂生成对象能力，只能生成特定的对象。bean必须使用 FactoryBean接口，此接口提供方法 getObject() 用于获得特定bean。
 
-  `<bean id="" class="FB">`  先创建FB实例，使用调用getObject()方法，并返回方法的返回值
+  `<bean id="" class="FB">`  底层源码是先创建FB实例，使用调用getObject()方法，并返回方法的返回值。如：
 
   ```java
   FB fb = new FB();
@@ -225,11 +225,11 @@ public class TestStaticFactory {
 
 #### 1）singleton
 
-单例模式，使用 singleton 定义的 Bean 在 Spring 容器中只有一个实例，这也是 Bean 默认的作用域。
+单例模式，单例，使用 singleton 定义的 Bean 在 Spring 容器中只有一个实例，这也是 Bean 默认的作用域。
 
 #### 2）prototype
 
-原型模式，每次通过 Spring 容器获取 prototype 定义的 Bean 时，容器都将创建一个新的 Bean 实例。
+原型模式，多例，每次通过 Spring 容器获取 prototype 定义的 Bean 时，容器都将创建一个新的 Bean 实例。
 
 **实现案例**
 
@@ -242,7 +242,7 @@ public class TestStaticFactory {
         				   
     <!-- Bean的作用域
     	默认情况 singleton: 单例模式
-    	scope:="prototype" : 多例模式
+    	scope = "prototype" : 多例模式
      -->
     <bean id="bookServiceId" class="com.stanlong.e_scope.BookServiceImpl" scope="prototype"></bean>
     
@@ -313,6 +313,18 @@ public class TestScope {
 
 ### 1) 初始化和销毁
 
+目标方法执行前或执行后将进行初始化或销毁: `<bean id="" class="" init-method="初始化方法名称" destroy-method="销毁的方法名称">`
+
+### 2) BeanPostProcessor 后处理Bean
+
+- spring 提供一种机制，只要实现此接口BeanPostProcessor，并将实现类提供给spring容器(配置`<bean class="">`)，spring容器将自动执行，在初始化方法前执行before()，在初始化方法后执行after() 。
+
+- Factory hook(勾子) that allows for custom modification of new bean instances, e.g. checking for marker interfaces or wrapping them with proxies.
+
+- spring提供工厂勾子，用于修改实例对象，可以生成代理对象，是AOP底层。
+
+**案例实现**
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -323,15 +335,14 @@ public class TestScope {
 	<!-- Bean 的生命周期 -->
 	<!--
 		 init-method 用于配置初始化方法，准备数据等
-		 destroy-method 用于配置销毁方法，清理资源等
+		 destroy-method 用于配置销毁方法，清理资源等. 调用销毁方法需要满足两个条件，1、容器必须关闭、2方法必须是单例的
 	 -->
 	<bean id="bookServiceId" class="com.stanlong.f_lifecycle.BookServiceImpl" init-method="myInit" destroy-method="myDestroy">
 	</bean>
 	
 	<!-- 将后处理实现类注册给Spring -->
 	<bean class="com.stanlong.f_lifecycle.MyBeanPostProcessor"></bean>
-	
-    
+	   
 </beans>
 ```
 
@@ -358,7 +369,7 @@ public class BookServiceImpl implements BookService{
 	public void myInit(){
 		System.out.println("初始化方法");
 	}
-	
+	// 调用销毁方法需要满足两个条件，1、容器必须关闭、2方法必须是单例的
 	public void myDestroy(){
 		System.out.println("销毁方法");
 	}
@@ -380,8 +391,8 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
 
 	/**
 	 * BeanPostProcessor 后处理 Bean
-	 * Spring 提供一种机制，只要实现此接口 BeanPostProcessor, 并将实现类提供给Spring容器， Spring容器将自动执行，在初始化方法前执行before
-	 * 在初始化方法后执行 after(). 配置<bean class="">
+	 * Spring 提供一种机制，只要实现此接口 BeanPostProcessor, 并将实现类提供给Spring容器(配置<bean class="">)， Spring容器将自动执行，在初始化方法前执行before
+	 * 在初始化方法后执行 after(). 
 	 * Spring 提供工厂勾子，用于修改实例对象，可以生成代理对象，是AOP底层
 	 */
 	@Override
@@ -408,7 +419,6 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
 					});
 	}
 }
-
 ```
 
 ```java
@@ -450,10 +460,102 @@ public class TestLifeCycle {
 }
 ```
 
-### 2) BeanPostProcessor 后处理Bean
+## 五、属性依赖注入
 
-spring 提供一种机制，只要实现此接口BeanPostProcessor，并将实现类提供给spring容器，spring容器将自动执行，在初始化方法前执行before()，在初始化方法后执行after() 。 配置<bean class="">
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        				   http://www.springframework.org/schema/beans/spring-beans.xsd">
+	        				   
+	<!-- setter方法注入 
+		*普通数据
+			<property name="" value""/>
+			等效于
+			<property name="">
+				<value></value>
+			</property>
+		*引用数据
+			<property name="" ref=""/>
+			等效于
+			<property name="">
+				<ref bean="">
+			</property>
+	-->
+	
+	<!-- 创建person -->
+	<bean id="personId" class="com.stanlong.g_setter.Person">
+		<property name="pname" value="stanlong"></property>
+		<property name="age">
+			<value>28</value>
+		</property>
+		<property name="homeAddr" ref="homeAddrId"></property>
+		<property name="companyAddr">
+			<ref bean="companyAddrId"/>
+		</property>
+	</bean>
+	
+	<bean id="homeAddrId" class="com.stanlong.g_setter.Address">
+		<property name="addr" value="江苏省南京市"></property>
+		<property name="tel" value="17512577346"></property>
+	</bean>
+	<bean id="companyAddrId" class="com.stanlong.g_setter.Address">
+		<property name="addr" value="江宁大学城"></property>
+		<property name="tel" value="15348247800"></property>
+	</bean>
+</beans>
+```
 
-Factory hook(勾子) that allows for custom modification of new bean instances, e.g. checking for marker interfaces or wrapping them with proxies.
+```java
+package com.stanlong.g_setter;
 
-spring提供工厂勾子，用于修改实例对象，可以生成代理对象，是AOP底层。
+@Setter
+@Getter
+@ToString
+public class Address {
+
+	private String addr;
+	private String tel;
+}
+
+```
+
+```java
+package com.stanlong.g_setter;
+
+@Getter
+@Setter
+@ToString
+public class Person {
+	private String pname;
+	private Integer age;
+	
+	private Address homeAddr;
+	private Address companyAddr;
+}
+```
+
+```java
+package com.stanlong.g_setter;
+
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class TestSetter {
+
+	@Test
+	public void demo01(){
+		String xmlPath = "com/stanlong/g_setter/applicationContext.xml";
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(xmlPath);
+		Person person = applicationContext.getBean("personId", Person.class);
+		System.out.println(person);
+	}
+}
+```
+
+
+
+## 六、集合注入
+
