@@ -1,7 +1,0 @@
-1、target：目标类，需要被代理的类
-2、JoinPoint(连接点)：可能被拦截到的方法
-3、PointCut(切入点)：已经被增强的连接点
-4、advice: 增强
-5、Weaving(织入)：是指把增强advice应用到目标对象target来创建新的代理对象的过程
-6、proxy 代理类
-7、Aspect(切面)：是切入点PointCut和通知advice的结合
