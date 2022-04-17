@@ -1,4 +1,4 @@
-package com.stanlong.l_web_annotation;
+package com.stanlong.dao;
 
 public interface StudentDao {
 

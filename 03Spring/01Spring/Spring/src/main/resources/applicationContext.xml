@@ -1,54 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
 	   xmlns:p="http://www.springframework.org/schema/p"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
-        				   http://www.springframework.org/schema/beans/spring-beans.xsd">
+        				   http://www.springframework.org/schema/beans/spring-beans.xsd
+        				   http://www.springframework.org/schema/context
+        				   http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!--
-	集合的注入都是给 <property> 添加子标签
-		数组: <array>
-		List: <list>
-		Set: <set>
-		Map: <map>
-		Properties: <props>
+	<!-- 开启注解扫描,扫描含有注释的类 -->
+	<!-- 依赖注入的注解格式
+		普通值：@Value
+		  引用值：
+		 	方式1：按照类型注入
+		 		@Autowired
+		 	方式2：按照名称注入
+		 		@Autowired
+		 		@Qualifier("名称")
+		 	方式3：按照名称注入
+		 		@Resource("名称")
+		 生命周期注解格式：
+		 	初始化：@PostConstruct
+		 	销毁：@PreDestroy
+		 作用域注解格式：
+		 	多例：@Scope("prototype")
 	 -->
-	<bean id="collDataId" class="com.stanlong.bean.CollData">
-		<property name="arrayData">
-			<array>
-				<value>张三</value>
-				<value>李四</value>
-				<value>王五</value>
-			</array>
-		</property>
-
-		<property name="listData">
-			<list>
-				<value>赵六</value>
-				<value>陈七</value>
-				<value>朱八</value>
-			</list>
-		</property>
-
-		<property name="setData">
-			<set>
-				<value>曾小贤</value>
-				<value>吕子乔</value>
-				<value>张伟</value>
-			</set>
-		</property>
-		<property name="mapData">
-			<map>
-				<entry key="战狼" value="吴京"></entry>
-				<entry key="流浪地球" value="郭帆"></entry>
-				<entry key="三体" value="刘慈欣"></entry>
-			</map>
-		</property>
-		<property name="propsData">
-			<props>
-				<prop key="数据代表">肖刘林</prop>
-				<prop key="华为接口人">范建斌</prop>
-			</props>
-		</property>
-	</bean>
+	<context:component-scan base-package="com.stanlong.dao"></context:component-scan>
+	<context:component-scan base-package="com.stanlong.service"></context:component-scan>
+	<context:component-scan base-package="com.stanlong.action"></context:component-scan>
 </beans>

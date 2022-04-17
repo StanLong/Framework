@@ -1,5 +1,6 @@
-package com.stanlong.l_web_annotation;
+package com.stanlong.dao.impl;
 
+import com.stanlong.dao.StudentDao;
 import org.springframework.stereotype.Repository;
 
 @Repository("studentDaoId")
