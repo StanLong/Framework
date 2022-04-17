@@ -12,22 +12,23 @@ public class LeetCode {
     }
 }
 
+/**
+ * 解题思路，用栈计数
+ */
 class Solution {
     public String removeDuplicates(String s, int k){
         Stack<Integer> stack = new Stack<>();
-        StringBuilder sb = new StringBuilder(s);
-        while (sb.length() != 0){
-            for(int i=0; i<sb.length();++i){
-                if(i==0 || sb.charAt(i) != sb.charAt(i-1)){
-                    stack.push(1);
+        StringBuilder sb = new StringBuilder(s); // 将字符串转换成StringBuilder类型，方便进行删除操作
+        for(int i=0; i<sb.length();++i){
+            if(i==0 || sb.charAt(i) != sb.charAt(i-1)){
+                stack.push(1);
+            }else {
+                int incremented = stack.pop() + 1;
+                if(incremented==k){
+                    sb.delete(i-k+1, i+1);
+                    i = i-k;
                 }else {
-                    int incremented = stack.pop() + 1;
-                    if(incremented==k){
-                        sb.delete(i-k+1, i+1);
-                        i = i-k;
-                    }else {
-                        stack.push(incremented);
-                    }
+                    stack.push(incremented);
                 }
             }
         }
