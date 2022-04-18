@@ -2,30 +2,39 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
         				   http://www.springframework.org/schema/beans/spring-beans.xsd
         				   http://www.springframework.org/schema/context
-        				   http://www.springframework.org/schema/context/spring-context.xsd">
+        				   http://www.springframework.org/schema/context/spring-context.xsd
+        				   http://www.springframework.org/schema/aop
+        				   http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<!-- 开启注解扫描,扫描含有注释的类 -->
-	<!-- 依赖注入的注解格式
-		普通值：@Value
-		  引用值：
-		 	方式1：按照类型注入
-		 		@Autowired
-		 	方式2：按照名称注入
-		 		@Autowired
-		 		@Qualifier("名称")
-		 	方式3：按照名称注入
-		 		@Resource("名称")
-		 生命周期注解格式：
-		 	初始化：@PostConstruct
-		 	销毁：@PreDestroy
-		 作用域注解格式：
-		 	多例：@Scope("prototype")
+	<!-- 创建目标类 -->
+	<bean id="userServiceId" class="com.stanlong.service.impl.UserServiceImpl"></bean>
+
+	<!-- 创建切面类 -->
+	<bean id="myAspectId" class="com.stanlong.aspect.MyAspect"></bean>
+
+	<!-- AOP编程
+		1、导入AOP命名空间
+		2、使用<aop:config>进行编程
+			<aop:pointcut> 切入点，从目标类获得具体方法
+			<aop:advisor> 特殊的切面，只有一个通知和一个切入点
+				advice-ref 通知引用
+				pointcut-ref 切入点引用
+		3、切入点表达式
+		execution(* com.stanlong.q_spring_full_auto.UserServiceImpl.*(..))
+		选择方法        任意返回值                                   包.任意方法.任意返回值                                                    改成*刚表示类名任意         方法名任意       参数任意
+
+		proxy-target-class: 声明式使用 cglib代理
+
+		<aop:config> 开启，则由Spring进行代理，注释起来则取消代理
 	 -->
-	<context:component-scan base-package="com.stanlong.dao"></context:component-scan>
-	<context:component-scan base-package="com.stanlong.service"></context:component-scan>
-	<context:component-scan base-package="com.stanlong.action"></context:component-scan>
+
+	<aop:config proxy-target-class="true">
+		<aop:pointcut expression="execution(* com.stanlong.service.impl.*.*(..))" id="myPointCut"/>
+		<aop:advisor advice-ref="myAspectId" pointcut-ref="myPointCut"/>
+	</aop:config>
+
 </beans>

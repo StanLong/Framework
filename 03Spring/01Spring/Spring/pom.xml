@@ -48,6 +48,14 @@
       <scope>compile</scope>
     </dependency>
 
+    <!-- AOP编程要引入的包 -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.9.9</version>
+      <scope>runtime</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
