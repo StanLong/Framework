@@ -9,12 +9,24 @@
         				   http://www.springframework.org/schema/context/spring-context.xsd
         				   http://www.springframework.org/schema/aop
         				   http://www.springframework.org/schema/aop/spring-aop.xsd">
-	<!-- 扫描所有的注解类 -->
-	<context:component-scan base-package="com.stanlong.aspect"></context:component-scan>
-	<context:component-scan base-package="com.stanlong.service"></context:component-scan>
 
-	<!-- 确定AOP注解生效 -->
-	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	<!-- 加载配置文件
+		classpath 表示src下
+	 -->
+	<context:property-placeholder location="classpath:jdbcInfo.properties"/>
+	<!-- 配置c3p0数据源 -->
+	<bean id="dataSourceId" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driverClass}"></property>
+		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+		<property name="user" value="${jdbc.user}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
 
+	<!-- 配置dao
+		dao继承 JdbaDaoSupport ,之后只需要注入数据源，底层将自动创建模板
+	 -->
+	<bean id="tbUserDaoId" class="com.stanlong.dao.TbUserDao">
+		<property name="dataSource" ref="dataSourceId"></property>
+	</bean>
 
 </beans>

@@ -73,6 +73,33 @@
       <version>5.3.19</version>
     </dependency>
 
+    <!-- Spring JdbcTemplate 要引入的包 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>5.3.19</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>5.3.19</version>
+    </dependency>
+
+    <!-- 连接mysql数据库 -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.28</version>
+    </dependency>
+
+    <!-- C3P0 连接池   -->
+    <dependency>
+      <groupId>c3p0</groupId>
+      <artifactId>c3p0</artifactId>
+      <version>0.9.1.2</version>
+    </dependency>
+
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
@@ -85,11 +112,23 @@
           <version>4.12</version>
           <scope>test</scope>
       </dependency>
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>1.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>1.4</version>
+      <scope>compile</scope>
+    </dependency>
 
   </dependencies>
 
   <!--
-    对于maven项目，如果代码中找不到xml路径，排查问题方式如下
+    对于maven项目，如果代码中找不到xml或者properties文件路径，排查问题方式如下
     1、先确定xml文件名称是否一致
     2、如果xml文件是在Java目录下，需要在pom文件中添加这段代码
   -->
@@ -99,6 +138,7 @@
         <directory>src/main/java</directory>
         <includes>
           <include>**/*.xml</include>
+          <include>**/*.properties</include>
         </includes>
       </resource>
     </resources>
