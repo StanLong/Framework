@@ -1,22 +1,26 @@
 package com.stanlong.service.impl;
 
 import com.stanlong.service.UserService;
+import org.springframework.stereotype.Service;
 
+@Service("userServiceId")
 public class UserServiceImpl implements UserService {
 
 	@Override
-	public void addUser() {
-		System.out.println("p_spring_half_auto addUser");
+	public String addUser() {
+		System.out.println("s_annotation_aspectj addUser");
+		return "StanLong";
 	}
 
 	@Override
 	public void updateUser() {
-		System.out.println("p_spring_half_auto updateUser");
+		int i = 1/0;
+		System.out.println("s_annotation_aspectj updateUser");
 	}
 
 	@Override
 	public void deleteUser() {
-		System.out.println("p_spring_half_auto deleteUser");
+		System.out.println("s_annotation_aspectj deleteUser");
 	}
 
 }
