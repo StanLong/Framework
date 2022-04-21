@@ -11,6 +11,6 @@ public class TestApp {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(xmlpath);
 		AccountService accountService = applicationContext.getBean("accountServiceId", AccountService.class);
 		accountService.transfer("lisi", "zhangsan", 500);
-		
+
 	}
 }

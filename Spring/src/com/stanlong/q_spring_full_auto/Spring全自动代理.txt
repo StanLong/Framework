@@ -1,3 +1,0 @@
-从Spring 容器中获得目标类，如果配置AOP, Spring 将自动生成代理
-确定目标类需要使用 Aspectj切入点表达式
-导入jar包 aspectjweaver-1.9.2
