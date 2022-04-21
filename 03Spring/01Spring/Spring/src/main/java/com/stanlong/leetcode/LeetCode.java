@@ -1,35 +1,26 @@
 package com.stanlong.leetcode;
 
-import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LeetCode {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        String s = "Aabb";
-        System.out.println(solution.frequencySort(s));
+        String s = ",";
+        System.out.println(solution.isSubsequence(s));
 
     }
 }
 
+/**
+ * 正则表达式匹配
+ */
 class Solution {
-    public String frequencySort(String s){
-        char[] chars = s.toCharArray();
-        Map<Character, Integer> map = new HashMap<>();
-        for(int i=0; i< chars.length; i++){
-            map.put(chars[i], map.getOrDefault(chars[i], 0)+1);
-        }
-        List<Map.Entry<Character, Integer>> list = new ArrayList<>(map.entrySet());
-        Collections.sort(list, (o1, o2) -> {
-            return o2.getValue().compareTo(o1.getValue());
-        });
-        Iterator<Map.Entry<Character, Integer>> it = list.iterator();
-        StringBuilder sb = new StringBuilder();
-        while (it.hasNext()){
-            Map.Entry<Character, Integer> entry = it.next();
-            for(int i=0; i<entry.getValue(); i++){
-                sb.append(entry.getKey());
-            }
-        }
-        return sb.toString();
+    public String isSubsequence(String s){
+        Pattern pattern = Pattern.compile("/?,/?");
+        Matcher matcher = pattern.matcher(s);
+        String result = matcher.replaceAll("/");
+        result.substring(1, result.length()-1);
+        return result;
     }
 }
