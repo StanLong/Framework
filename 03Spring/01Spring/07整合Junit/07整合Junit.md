@@ -1,3 +1,9 @@
+# 整合Junit
+
+1. 让Junit通知spring加载配置文件
+2. 让spring容器自动进行注入
+
+```java
 import com.stanlong.service.AccountService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,10 +20,11 @@ public class TestApp {
 
 	@Test
 	public void demo01(){
-//		String xmlpath = "applicationContext.xml";
+//		String xmlpath = "applicationContext.xml"; // 让Junit通知spring加载配置文件, 不需要再手动声明
 //		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(xmlpath);
 //		AccountService accountService = applicationContext.getBean("accountServiceId", AccountService.class);
 		accountService.transfer("lisi", "zhangsan", 500);
-
 	}
 }
+```
+
