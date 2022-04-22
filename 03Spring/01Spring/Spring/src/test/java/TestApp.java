@@ -1,22 +1,16 @@
 import com.stanlong.service.AccountService;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class TestApp {
-
-	@Autowired // 与Junit整合，不需要在Spring的xml中配置扫描
-	private AccountService accountService;
 
 	@Test
 	public void demo01(){
-//		String xmlpath = "applicationContext.xml";
-//		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(xmlpath);
-//		AccountService accountService = applicationContext.getBean("accountServiceId", AccountService.class);
+		String xmlpath = "applicationContext.xml";
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(xmlpath);
+		// 1. 获得代理对象
+		AccountService accountService = applicationContext.getBean("accountServiceId", AccountService.class);
 		accountService.transfer("lisi", "zhangsan", 500);
 
 	}

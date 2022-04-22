@@ -22,7 +22,4 @@ public class AccountServiceImpl implements AccountService {
 		int i = 1/0;
 		accountDao.in(inner, money);
 	}
-
-
-
 }

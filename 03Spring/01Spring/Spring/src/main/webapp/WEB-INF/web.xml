@@ -3,5 +3,24 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>SpringWeb</display-name>
+  <!-- 1. 配置Spring监听器，默认加载xml位置是在/WEB-INF/applicationContext.xml -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!-- 2. 确定配置文件位置，通过系统初始化参数 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+
+  <servlet>
+    <servlet-name>HelloServlet</servlet-name>
+    <servlet-class>com.stanlong.servlet.HelloServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HelloServlet</servlet-name>
+    <url-pattern>/HelloServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

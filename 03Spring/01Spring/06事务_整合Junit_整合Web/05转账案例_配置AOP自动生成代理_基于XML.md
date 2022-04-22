@@ -8,97 +8,6 @@
 
 **转账案例**
 
-```sql
--- 数据准备
-create database spring_transaction default charset utf8 COLLATE utf8_general_ci;;
-use spring_transaction;
-create table account(
-    id int(11) primary key auto_increment,
-    username varchar(255),
-    money int(11)
-);
-
-insert into account(username, money) values('zhangsan', 10000);
-insert into account(username, money) values('lisi', 8000);
-```
-
-```java
-package com.stanlong.dao;
-
-public interface AccountDao {
-
-	/**
-	 * 汇款
-	 * @param outer
-	 * @param money
-	 */
-	public void out(String outer, Integer money);
-	
-	/**
-	 * 收款
-	 * @param inner
-	 * @param money
-	 */
-	public void in(String inner, Integer money);
-}
-```
-
-```java
-package com.stanlong.dao.impl;
-
-import com.stanlong.dao.AccountDao;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
-
-public class AccountDaoImpl extends JdbcDaoSupport implements AccountDao {
-
-	@Override
-	public void out(String outer, Integer money) {
-		this.getJdbcTemplate().update("update account set money=money-? where username=?", money ,outer);
-	}
-
-	@Override
-	public void in(String inner, Integer money) {
-		this.getJdbcTemplate().update("update account set money = money+? where username=?", money, inner);
-	}
-}
-```
-
-```java
-package com.stanlong.service;
-
-public interface AccountService {
-
-	public void transfer(String outer, String inner, Integer money);
-}
-```
-
-```java
-package com.stanlong.service.impl;
-
-import com.stanlong.dao.AccountDao;
-import com.stanlong.service.AccountService;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
-import org.springframework.transaction.support.TransactionTemplate;
-
-public class AccountServiceImpl implements AccountService {
-
-	private AccountDao accountDao;
-	
-	public void setAccountDao(AccountDao accountDao) {
-		this.accountDao = accountDao;
-	}
-
-	@Override
-	public void transfer(String outer, String inner, Integer money) {
-		accountDao.out(outer, money);
-		//模拟断电
-		int i = 1/0;
-		accountDao.in(inner, money);
-	}
-}
-```
-
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -141,11 +50,12 @@ public class AccountServiceImpl implements AccountService {
 				isolation 隔离级别
 		4.3 AOP编程
 	-->
-	<!--  事务管理器 -->
+	<!--  1 配置事务管理器 -->
 	<bean id="txManagerId" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSourceId"></property>
 	</bean>
 
+	<!--  2 配置事务详情 -->
 	<!-- 事务详情：在aop筛选的基础上对方法确定使用什么样的事务，例如AC读写，B只读
 			<tx:attributes> 用于配置事务详情
 			<tx:method name=""/> 具体配置
@@ -157,7 +67,7 @@ public class AccountServiceImpl implements AccountService {
 		</tx:attributes>
 	</tx:advice>
 
-	<!-- AOP编程 -->
+	<!--  3 配置AOP -->
 	<aop:config>
 		<aop:advisor advice-ref="txAdviceId" pointcut="execution(* com.stanlong.service.impl.AccountServiceImpl.*(..))"/>
 	</aop:config>

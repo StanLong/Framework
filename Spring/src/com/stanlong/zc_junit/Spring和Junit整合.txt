@@ -1,5 +1,0 @@
-导入jar包：
-	spring-test
-	
-让 Junit 通知Spring加载配置文件
-让Spinrg窗口自动注入
