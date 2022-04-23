@@ -10,38 +10,38 @@ spring采用的是第三种。spring提供监听器 `ContextLoaderListener --> w
 
 如果只配置监听器，默认加载xml位置：`/WEB-INF/applicationContext.xml`
 
-web.xml
+**web.xml**
 
 ```xml
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <display-name>SpringWeb</display-name>
+    <!-- 1. 配置Spring监听器，默认加载xml位置是在/WEB-INF/applicationContext.xml -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
-<web-app>
-  <display-name>SpringWeb</display-name>
-  <!-- 1. 配置Spring监听器，默认加载xml位置是在/WEB-INF/applicationContext.xml -->
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
+    <!-- 2. 确定配置文件位置，通过系统初始化参数 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
 
-  <!-- 2. 确定配置文件位置，通过系统初始化参数 -->
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:applicationContext.xml</param-value>
-  </context-param>
-
-  <servlet>
-    <servlet-name>HelloServlet</servlet-name>
-    <servlet-class>com.stanlong.servlet.HelloServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>HelloServlet</servlet-name>
-    <url-pattern>/HelloServlet</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>HelloServlet</servlet-name>
+        <servlet-class>com.stanlong.servlet.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HelloServlet</servlet-name>
+        <url-pattern>/HelloServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
 ```
 
-index.jsp
+**index.jsp**
 
 ```jsp
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -53,7 +53,7 @@ index.jsp
 <title>HelloSpring</title>
 </head>
 <body>
-	<a href="${pageContext.request.contextPath}/HelloSpring">Spring整合Web</a>
+	<a href="${pageContext.request.contextPath}/HelloServlet">Spring整合Web</a>
 </body>
 </html>
 ```
@@ -91,5 +91,10 @@ public class HelloServlet extends HttpServlet{
 }
 ```
 
+说明：
 
+- tomcat 版本 apache-tomcat-9.0.30
+- 解析错误：`$%7BpageContext.request.contextPath%7D` `https://blog.csdn.net/qq_43493747/article/details/118682557`
+- tomcat9启动时中文乱码 `https://blog.csdn.net/weixin_45816407/article/details/106061489`
+- 报类`javax.servlet.http.HttpServlet` 找不到 `https://www.cnblogs.com/L-Wirepuller/p/10838405.html`
 

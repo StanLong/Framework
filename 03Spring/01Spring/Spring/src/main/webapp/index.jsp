@@ -7,6 +7,6 @@
     <title>HelloSpring</title>
 </head>
 <body>
-<a href="${pageContext.request.contextPath}/HelloSpring">Spring容器的获得</a>
+<a href="${pageContext.request.contextPath}/HelloServlet">Spring整合Web</a>
 </body>
 </html>
