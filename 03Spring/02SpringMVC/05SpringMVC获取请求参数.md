@@ -16,7 +16,7 @@ public String testParam(HttpServletRequest request){
 
 ### 2、通过控制器方法的形参获取请求参数
 
-在控制器方法的形参位置，设置和请求参数同名的形参，当浏览器发送请求，匹配到请求映射时，在DispatcherServlet中就会将请求参数赋值给相应的形参
+在控制器方法的形参位置，**设置和请求参数同名的形参**，当浏览器发送请求，匹配到请求映射时，在DispatcherServlet中就会将请求参数赋值给相应的形参
 
 ```html
 <a th:href="@{/testParam(username='admin',password=123456)}">测试获取请求参数-->/testParam</a><br>
@@ -44,13 +44,13 @@ public String testParam(String username, String password){
 
 @RequestParam注解一共有三个属性：
 
-value：指定为形参赋值的请求参数的参数名
+- value：指定为形参赋值的请求参数的参数名
 
-required：设置是否必须传输此请求参数，默认值为true
+- required：设置是否必须传输此请求参数，默认值为true
 
-若设置为true时，则当前请求必须传输value所指定的请求参数，若没有传输该请求参数，且没有设置defaultValue属性，则页面报错400：Required String parameter 'xxx' is not present；若设置为false，则当前请求不是必须传输value所指定的请求参数，若没有传输，则注解所标识的形参的值为null
+  若设置为true时，则当前请求必须传输value所指定的请求参数，若没有传输该请求参数，且没有设置defaultValue属性，则页面报错400：Required String parameter 'xxx' is not present；若设置为false，则当前请求不是必须传输value所指定的请求参数，若没有传输，则注解所标识的形参的值为null
 
-defaultValue：不管required属性值为true或false，当value所指定的请求参数没有传输或传输的值为""时，则使用默认值为形参赋值
+- defaultValue：不管required属性值为true或false，当value所指定的请求参数没有传输或传输的值为""时，则使用默认值为形参赋值
 
 ### 4、@RequestHeader
 

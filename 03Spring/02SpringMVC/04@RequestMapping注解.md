@@ -30,7 +30,7 @@ public class RequestMappingController {
 
 `@RequestMapping`注解的value属性通过请求的请求地址匹配请求映射
 
-`@RequestMapping`注解的value属性是一个字符串类型的数组，表示该请求映射能够匹配多个请求地址所对应的请求
+`@RequestMapping`注解的value属性是一个字符串类型的数组，表示**该请求映射能够匹配多个请求地址所对应的请求**
 
 `@RequestMapping`注解的value属性必须设置，至少通过请求地址匹配请求映射
 
@@ -41,7 +41,7 @@ public class RequestMappingController {
 
 ```java
 @RequestMapping(
-        value = {"/testRequestMapping", "/test"}
+        value = {"/testRequestMapping", "/test"} // 表示该请求映射能够匹配多个请求地址所对应的请求
 )
 public String testRequestMapping(){
     return "success";
@@ -170,5 +170,3 @@ public String testRest(@PathVariable("id") String id, @PathVariable("username") 
 }
 //最终输出的内容为-->id:1,username:admin
 ```
-
-# 
