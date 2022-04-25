@@ -15,11 +15,11 @@ SpringMVC视图的种类很多，默认有转发视图和重定向视图
 ```java
 @RequestMapping("/testHello")
 public String testHello(){
-    return "hello";
+    return "hello"; // 视图名称没有任何前缀
 }
 ```
 
-![](D:/StanLong/git_repository/Framework/03Spring/02SpringMVC/笔记/img/img002.png)
+![](https://cdn.jsdelivr.net/gh/StanLong/Framework/03Spring/02SpringMVC/doc/img002.png)
 
 ### 2、转发视图
 
@@ -38,7 +38,7 @@ public String testForward(){
 }
 ```
 
-![image-20210706201316593](D:/StanLong/git_repository/Framework/03Spring/02SpringMVC/笔记/img/img003.png)
+![](https://cdn.jsdelivr.net/gh/StanLong/Framework/03Spring/02SpringMVC/doc/img003.png)
 
 ### 3、重定向视图
 
