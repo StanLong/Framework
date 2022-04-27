@@ -212,6 +212,42 @@ public String getEmployeeList(Model model){
 
 - **创建employee_list.html**
 
+```jsp
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Info</title>
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+</head>
+<body>
+
+    <table border="1" cellpadding="0" cellspacing="0" style="text-align: center;" id="dataTable">
+        <tr>
+            <th colspan="5">Employee Info</th>
+        </tr>
+        <tr>
+            <th>id</th>
+            <th>lastName</th>
+            <th>email</th>
+            <th>gender</th>
+            <th>options(<a th:href="@{/toAdd}">add</a>)</th>
+        </tr>
+        <tr th:each="employee : ${employeeList}">
+            <td th:text="${employee.id}"></td>
+            <td th:text="${employee.lastName}"></td>
+            <td th:text="${employee.email}"></td>
+            <td th:text="${employee.gender}"></td>
+            <td>
+                <a class="deleteA" @click="deleteEmployee" th:href="@{'/employee/'+${employee.id}}">delete</a>
+                <a th:href="@{'/employee/'+${employee.id}}">update</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+```
+
 
 
 
