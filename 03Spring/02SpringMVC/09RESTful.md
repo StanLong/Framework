@@ -73,3 +73,103 @@ REST 风格提倡 URL 地址使用统一的风格设计，从前到后各个单�
 >   String paramValue = request.getParameter(this.methodParam);
 >   ```
 
+## RESTful案例
+
+### 1、准备工作
+
+和传统 CRUD 一样，实现对员工信息的增删改查。
+
+- 搭建环境
+
+- 准备实体类
+
+  ```java
+  package com.stanlong.bean;
+  
+  import lombok.Getter;
+  import lombok.NonNull;
+  import lombok.RequiredArgsConstructor;
+  import lombok.Setter;
+  
+  @Getter
+  @Setter
+  @RequiredArgsConstructor
+  public class Employee {
+      @NonNull
+      private Integer id;
+      @NonNull
+      private String lastName;
+  
+      @NonNull
+      private String email;
+      //1 male, 0 female
+      @NonNull
+      private Integer gender;
+      public Employee() {
+      }
+  }
+  ```
+
+- 准备dao模拟数据
+
+  ```java
+  package com.stanlong.dao;
+  
+  
+  import com.stanlong.bean.Employee;
+  import org.springframework.stereotype.Repository;
+  
+  import java.util.Collection;
+  import java.util.HashMap;
+  import java.util.Map;
+  
+  @Repository
+  public class EmployeeDao {
+  
+      private static Map<Integer, Employee> employees = null;
+  
+      static{
+          employees = new HashMap<Integer, Employee>();
+  
+          employees.put(1001, new Employee(1001, "E-AA", "aa@163.com", 1));
+          employees.put(1002, new Employee(1002, "E-BB", "bb@163.com", 1));
+          employees.put(1003, new Employee(1003, "E-CC", "cc@163.com", 0));
+          employees.put(1004, new Employee(1004, "E-DD", "dd@163.com", 0));
+          employees.put(1005, new Employee(1005, "E-EE", "ee@163.com", 1));
+      }
+  
+      private static Integer initId = 1006;
+  
+      public void save(Employee employee){
+          if(employee.getId() == null){
+              employee.setId(initId++);
+          }
+          employees.put(employee.getId(), employee);
+      }
+  
+      public Collection<Employee> getAll(){
+          return employees.values();
+      }
+  
+      public Employee get(Integer id){
+          return employees.get(id);
+      }
+  
+      public void delete(Integer id){
+          employees.remove(id);
+      }
+  }
+  ```
+
+### 2、功能清单
+
+| 功能                | URL 地址    | 请求方式 |
+| ------------------- | ----------- | -------- |
+| 访问首页√           | /           | GET      |
+| 查询全部数据√       | /employee   | GET      |
+| 删除√               | /employee/2 | DELETE   |
+| 跳转到添加数据页面√ | /toAdd      | GET      |
+| 执行保存√           | /employee   | POST     |
+| 跳转到更新数据页面√ | /employee/2 | GET      |
+| 执行更新√           | /employee   | PUT      |
+
