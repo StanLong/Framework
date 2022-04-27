@@ -210,53 +210,9 @@ public String getEmployeeList(Model model){
 }
 ```
 
-- **创建employee_list.html**
 
-```html
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Employee Info</title>
-    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
-</head>
-<body>
 
-    <table border="1" cellpadding="0" cellspacing="0" style="text-align: center;" id="dataTable">
-        <tr>
-            <th colspan="5">Employee Info</th>
-        </tr>
-        <tr>
-            <th>id</th>
-            <th>lastName</th>
-            <th>email</th>
-            <th>gender</th>
-            <th>options(<a th:href="@{/toAdd}">add</a>)</th>
-        </tr>
-        <tr th:each="employee : ${employeeList}">
-            <td th:text="${employee.id}"></td>
-            <td th:text="${employee.lastName}"></td>
-            <td th:text="${employee.email}"></td>
-            <td th:text="${employee.gender}"></td>
-            <td>
-                <a class="deleteA" @click="deleteEmployee" th:href="@{'/employee/'+${employee.id}}">delete</a>
-                <a th:href="@{'/employee/'+${employee.id}}">update</a>
-            </td>
-        </tr>
-    </table>
-</body>
-</html>
-```
 
-### 5、具体功能：删除
 
-- **创建处理delete请求方式的表单**
 
-```html
-<!-- 作用：通过超链接控制表单的提交，将post请求转换为delete请求 -->
-<form id="delete_form" method="post">
-    <!-- HiddenHttpMethodFilter要求：必须传输_method请求参数，并且值为最终的请求方式 -->
-    <input type="hidden" name="_method" value="delete"/>
-</form>
-```
 
