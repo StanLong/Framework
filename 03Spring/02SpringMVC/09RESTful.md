@@ -212,7 +212,7 @@ public String getEmployeeList(Model model){
 
 - **创建employee_list.html**
 
-```php+HTML
+```jsp
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -247,6 +247,8 @@ public String getEmployeeList(Model model){
 </body>
 </html>
 ```
+
+
 
 
 
