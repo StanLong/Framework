@@ -350,53 +350,5 @@ public String addEmployee(Employee employee){
 }
 ```
 
-### 8、具体功能：跳转到更新数据页面
-
-- **修改超链接**
-
-```html
-<a th:href="@{'/employee/'+${employee.id}}">update</a>
-```
-
-- **控制器方法**
-
-```java
-@RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
-public String getEmployeeById(@PathVariable("id") Integer id, Model model){
-    Employee employee = employeeDao.get(id);
-    model.addAttribute("employee", employee);
-    return "employee_update";
-}
-```
-
-- **创建employee_update.html**
-
-```html
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Update Employee</title>
-</head>
-<body>
-
-<form th:action="@{/employee}" method="post">
-    <input type="hidden" name="_method" value="put">
-    <input type="hidden" name="id" th:value="${employee.id}">
-    lastName:<input type="text" name="lastName" th:value="${employee.lastName}"><br>
-    email:<input type="text" name="email" th:value="${employee.email}"><br>
-    <!--
-        th:field="${employee.gender}"可用于单选框或复选框的回显
-        若单选框的value和employee.gender的值一致，则添加checked="checked"属性
-    -->
-    gender:<input type="radio" name="gender" value="1" th:field="${employee.gender}">male
-    <input type="radio" name="gender" value="0" th:field="${employee.gender}">female<br>
-    <input type="submit" value="update"><br>
-</form>
-
-</body>
-</html>
-```
-
 
 
