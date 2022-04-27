@@ -398,13 +398,5 @@ public String getEmployeeById(@PathVariable("id") Integer id, Model model){
 </html>
 ```
 
-### 9、具体功能：执行更新
 
-```java
-@RequestMapping(value = "/employee", method = RequestMethod.PUT)
-public String updateEmployee(Employee employee){
-    employeeDao.save(employee);
-    return "redirect:/employee";
-}
-```
 
