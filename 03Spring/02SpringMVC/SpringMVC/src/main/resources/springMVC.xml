@@ -2,7 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- 自动扫描包 -->
     <context:component-scan base-package="com.stanlong.controller"></context:component-scan>
@@ -29,6 +31,12 @@
         </property>
     </bean>
 
-
-
+    <!--
+       视图控制器
+        path：设置处理的请求地址
+        view-name：设置请求地址所对应的视图名称
+    -->
+    <mvc:view-controller path="/" view-name="index"/>
+    <!-- 使用了 mvc:view-controller 这个标签后必须配置mvc:annotation-driven， 否则会造成所有的@Controller注解无法解析，导致404错误   -->
+    <mvc:annotation-driven />
 </beans>
