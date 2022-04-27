@@ -28,3 +28,48 @@ REST 风格提倡 URL 地址使用统一的风格设计，从前到后各个单�
 | 保存操作 | saveUser         | user-->post请求方式     |
 | 删除操作 | deleteUser?id=1  | user/1-->delete请求方式 |
 | 更新操作 | updateUser       | user-->put请求方式      |
+
+## HiddenHttpMethodFilter
+
+由于浏览器只支持发送get和post方式的请求，那么该如何发送put和delete请求呢？
+
+`SpringMVC` 提供了 `HiddenHttpMethodFilter` 帮助我们将 POST 请求转换为 DELETE 或 PUT 请求
+
+`HiddenHttpMethodFilter` 处理put和delete请求的条件：
+
+- 前请求的请求方式必须为post
+- 当前请求必须传输请求参数_method
+
+满足以上条件，`HiddenHttpMethodFilter` 过滤器就会将当前请求的请求方式转换为请求参数_method的值，因此请求参数\_method的值才是最终的请求方式
+
+在web.xml中注册`HiddenHttpMethodFilter`
+
+```xml
+<filter>
+    <filter-name>HiddenHttpMethodFilter</filter-name>
+    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>HiddenHttpMethodFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+```
+
+> 注：
+>
+> 目前为止，`SpringMVC`中提供了两个过滤器：`CharacterEncodingFilter`和`HiddenHttpMethodFilter`
+>
+> 在web.xml中注册时，必须先注册`CharacterEncodingFilter`，再注册`HiddenHttpMethodFilter`
+>
+> 原因：
+>
+> - 在 `CharacterEncodingFilter` 中通过 `request.setCharacterEncoding(encoding)` 方法设置字符集的
+>
+> - `request.setCharacterEncoding(encoding)` 方法要求前面不能有任何获取请求参数的操作
+>
+> - 而 `HiddenHttpMethodFilter` 恰恰有一个获取请求方式的操作：
+>
+> - ```
+>   String paramValue = request.getParameter(this.methodParam);
+>   ```
+
