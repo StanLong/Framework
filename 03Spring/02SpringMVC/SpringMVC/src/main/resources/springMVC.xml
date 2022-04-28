@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- 自动扫描包 -->
-    <context:component-scan base-package="com.stanlong.controller"></context:component-scan>
+    <context:component-scan base-package="com.stanlong.controller, com.stanlong.dao"></context:component-scan>
 
     <!-- 配置Thymeleaf视图解析器 -->
     <bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
@@ -32,11 +32,20 @@
     </bean>
 
     <!--
-       视图控制器
+       配置视图控制器
         path：设置处理的请求地址
         view-name：设置请求地址所对应的视图名称
     -->
     <mvc:view-controller path="/" view-name="index"/>
-    <!-- 使用了 mvc:view-controller 这个标签后必须配置mvc:annotation-driven， 否则会造成所有的@Controller注解无法解析，导致404错误   -->
+    <mvc:view-controller path="/toAdd" view-name="employee_add"></mvc:view-controller>
+
+    <!--
+        处理静态资源，例如html、js、css、jpg。 若只设置该标签，则只能访问静态资源，其他请求则无法访问
+        此时必须设置<mvc:annotation-driven/>解决问题
+    -->
+    <mvc:default-servlet-handler/>
+
+    <!-- 开启mvc注解驱动。使用了 mvc:view-controller 这个标签后必须配置mvc:annotation-driven， 否则会造成所有的@Controller注解无法解析，导致404错误   -->
     <mvc:annotation-driven />
+
 </beans>

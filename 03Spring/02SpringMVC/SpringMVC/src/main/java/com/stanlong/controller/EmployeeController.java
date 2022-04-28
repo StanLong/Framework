@@ -1,39 +1,55 @@
 package com.stanlong.controller;
 
+import com.stanlong.bean.Employee;
+import com.stanlong.dao.EmployeeDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Collection;
 
 @Controller
 public class EmployeeController {
 
+    private EmployeeDao employeeDao;
+
+    @Autowired
+    public void setEmployeeDao(EmployeeDao employeeDao) {
+        this.employeeDao = employeeDao;
+    }
+
     @RequestMapping(value = "/employee", method = RequestMethod.GET)
-    public String queryAll(){
-        return "success";
+    public String queryAll(Model model){
+        Collection<Employee> employeeList = employeeDao.getAll();
+        model.addAttribute("employeeList", employeeList);
+        return "employee_list";
     }
 
-    @RequestMapping(value = "/employee/1", method = RequestMethod.DELETE)
-    public String deleteById(){
-        return "success";
-    }
-
-    @RequestMapping(value = "/toAdd", method = RequestMethod.GET)
-    public String toAdd(){
-        return "success";
+    @RequestMapping(value = "/employee/{id}", method = RequestMethod.DELETE)
+    public String deleteById(@PathVariable("id") Integer id){
+        employeeDao.delete(id);
+        return "redirect:/employee"; // redirect 相当于浏览器重新发送一个新的请求
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.POST)
-    public String save(){
-        return "success";
+    public String addEmployee(Employee employee){
+        employeeDao.save(employee);
+        return "redirect:/employee";
     }
 
-    @RequestMapping(value = "/employee/2", method = RequestMethod.GET)
-    public String queryById(){
-        return "success";
+    @RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
+    public String queryById(@PathVariable("id") Integer id, Model model){
+        Employee employee = employeeDao.get(id);
+        model.addAttribute("employee", employee);
+        return "employee_update";
     }
 
-    @RequestMapping(value = "/employee/3", method = RequestMethod.POST)
-    public String update(){
-        return "success";
+    @RequestMapping(value = "/employee", method = RequestMethod.PUT)
+    public String update(Employee employee){
+        employeeDao.save(employee);
+        return "redirect:/employee";
     }
 }
