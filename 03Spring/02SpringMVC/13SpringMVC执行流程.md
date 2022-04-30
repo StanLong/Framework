@@ -1,6 +1,6 @@
 # 十三、SpringMVC执行流程
 
-### 1、SpringMVC常用组件
+## 1、SpringMVC常用组件
 
 - DispatcherServlet：**前端控制器**，不需要工程师开发，由框架提供
 
@@ -26,13 +26,13 @@
 
 作用：将模型数据通过页面展示给用户
 
-### 2、DispatcherServlet初始化过程
+## 2、DispatcherServlet初始化过程
 
 DispatcherServlet 本质上是一个 Servlet，所以天然的遵循 Servlet 的生命周期。所以宏观上是 Servlet 生命周期来进行调度。
 
 ![images](D:/StanLong/git_repository/Framework/03Spring/02SpringMVC/笔记/img/img005.png)
 
-##### a>初始化WebApplicationContext
+### a.初始化WebApplicationContext
 
 所在类：org.springframework.web.servlet.FrameworkServlet
 
@@ -93,7 +93,7 @@ protected WebApplicationContext initWebApplicationContext() {
 }
 ```
 
-##### b>创建WebApplicationContext
+### b.创建WebApplicationContext
 
 所在类：org.springframework.web.servlet.FrameworkServlet
 
@@ -123,7 +123,7 @@ protected WebApplicationContext createWebApplicationContext(@Nullable Applicatio
 }
 ```
 
-##### c>DispatcherServlet初始化策略
+### c.DispatcherServlet初始化策略
 
 FrameworkServlet创建WebApplicationContext后，刷新容器，调用onRefresh(wac)，此方法在DispatcherServlet中进行了重写，调用了initStrategies(context)方法，初始化策略，即初始化DispatcherServlet的各个组件
 
@@ -143,9 +143,9 @@ protected void initStrategies(ApplicationContext context) {
 }
 ```
 
-### 3、DispatcherServlet调用组件处理请求
+## 3、DispatcherServlet调用组件处理请求
 
-##### a>processRequest()
+### a.processRequest()
 
 FrameworkServlet重写HttpServlet中的service()和doXxx()，这些方法中调用了processRequest(request, response)
 
@@ -193,7 +193,7 @@ protected final void processRequest(HttpServletRequest request, HttpServletRespo
 }
 ```
 
-##### b>doService()
+### b.doService()
 
 所在类：org.springframework.web.servlet.DispatcherServlet
 
@@ -254,7 +254,7 @@ protected void doService(HttpServletRequest request, HttpServletResponse respons
 }
 ```
 
-##### c>doDispatch()
+### c.doDispatch()
 
 所在类：org.springframework.web.servlet.DispatcherServlet
 
@@ -354,7 +354,7 @@ protected void doDispatch(HttpServletRequest request, HttpServletResponse respon
 }
 ```
 
-##### d>processDispatchResult()
+### d.processDispatchResult()
 
 ```java
 private void processDispatchResult(HttpServletRequest request, HttpServletResponse response,
@@ -402,7 +402,7 @@ private void processDispatchResult(HttpServletRequest request, HttpServletRespon
 }
 ```
 
-### 4、SpringMVC的执行流程
+## 4、SpringMVC的执行流程
 
 1) 用户向服务器发送请求，请求被SpringMVC 前端控制器 DispatcherServlet捕获。
 

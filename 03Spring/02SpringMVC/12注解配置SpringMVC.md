@@ -2,12 +2,13 @@
 
 使用配置类和注解代替web.xml和SpringMVC配置文件的功能
 
-### 1、创建初始化类，代替web.xml
+## 1、创建初始化类，代替web.xml
 
-在Servlet3.0环境中，容器会在类路径中查找实现javax.servlet.ServletContainerInitializer接口的类，如果找到的话就用它来配置Servlet容器。
+在Servlet3.0环境中，容器会在类路径中查找实现`javax.servlet.ServletContainerInitializer`接口的类，如果找到的话就用它来配置Servlet容器。
 Spring提供了这个接口的实现，名为SpringServletContainerInitializer，这个类反过来又会查找实现WebApplicationInitializer的类并将配置的任务交给它们来完成。Spring3.2引入了一个便利的WebApplicationInitializer基础实现，名为AbstractAnnotationConfigDispatcherServletInitializer，当我们的类扩展了AbstractAnnotationConfigDispatcherServletInitializer并将其部署到Servlet3.0容器的时候，容器会自动发现它，并用它来配置Servlet上下文。
 
 ```java
+// web工程的初始化类，用来代替web.xml
 public class WebInit extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     /**
@@ -52,7 +53,7 @@ public class WebInit extends AbstractAnnotationConfigDispatcherServletInitialize
 }
 ```
 
-### 2、创建SpringConfig配置类，代替spring的配置文件
+## 2、创建SpringConfig配置类，代替spring的配置文件
 
 ```java
 @Configuration
@@ -61,7 +62,7 @@ public class SpringConfig {
 }
 ```
 
-### 3、创建WebConfig配置类，代替SpringMVC的配置文件
+## 3、创建WebConfig配置类，代替SpringMVC的配置文件
 
 ```java
 @Configuration
@@ -145,7 +146,7 @@ public class WebConfig implements WebMvcConfigurer {
 }
 ```
 
-### 4、测试功能
+## 4、测试功能
 
 ```java
 @RequestMapping("/")
@@ -153,5 +154,3 @@ public String index(){
     return "index";
 }
 ```
-
-# 
