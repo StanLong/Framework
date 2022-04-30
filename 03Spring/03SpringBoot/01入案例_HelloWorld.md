@@ -66,7 +66,7 @@
 
 #### 创建主程序
 
-**注意：**  对于springboot项目，新增的包文件需要放在启动类的同级包下。 不然启动类启时会报404
+**注意：**  对于springboot项目，默认情况下新增的类文件需要放在启动类的同级包下，这样才会被SpringBoot扫描到类注解 。 如果扫描不到，启动时访问页面会报404
 
 ```java
 package com.stanlong;
@@ -75,7 +75,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 主程序类
+ * 启动类
  * @SpringBootApplication 标识这是一个SpringBoot应用
  */
 @SpringBootApplication

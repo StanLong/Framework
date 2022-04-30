@@ -18,3 +18,7 @@ Spring课程地址： https://www.bilibili.com/video/BV1nx411g7ja?p=1
 CSDN: [小朱小朱绝不服输](https://blog.csdn.net/weixin_44052055)
 
 Java 进制转换： https://www.cnblogs.com/jingzh/p/15168962.html
+
+SpringBoot笔记： https://www.yuque.com/atguigu/springboot/oovrhy
+
+maven 仓库： https://mvnrepository.com/search?q=tk.mybatis
