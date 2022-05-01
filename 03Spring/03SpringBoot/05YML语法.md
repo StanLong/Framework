@@ -14,7 +14,7 @@ YAML 是 "YAML Ain't Markup Language"（YAML 不是一种标记语言）的递�
 - 缩进不允许使用tab，只允许空格
 - 缩进的空格数不重要，只要相同层级的元素左对齐即可
 - '#'表示注释
-- 字符串无需加引号，如果要加，单引号''、双引号""表示字符串内容会被 转义、不转义
+- 字符串无需加引号，如果要加，单引号会将 转义字符作为字符串输出，双引号则表会表示出转义字符本来的含义
 
 ## 数据类型
 
@@ -57,6 +57,7 @@ k:
 ## 实例
 
 ```java
+@ConfigureationProperties(prefix="person")
 @Data
 public class Person {
     private String userName;
@@ -107,6 +108,8 @@ person:
       - {name: jerry,weight: 47}
     health: [{name: mario,weight: 47}]
 ```
+
+**注意**：properties 配置文件的优先级比yml的优先级要高
 
 # 自定义类绑定的配置提示
 
