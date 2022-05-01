@@ -1,4 +1,4 @@
-## 20、配置文件-yaml的用法
+# yaml的用法
 
 同以前的properties用法
 
@@ -6,7 +6,7 @@ YAML 是 "YAML Ain't Markup Language"（YAML 不是一种标记语言）的递�
 
 **非常适合用来做以数据为中心的配置文件**。
 
-### 基本语法
+## 基本语法
 
 - key: value；kv之间有空格
 - 大小写敏感
@@ -16,7 +16,7 @@ YAML 是 "YAML Ain't Markup Language"（YAML 不是一种标记语言）的递�
 - '#'表示注释
 - 字符串无需加引号，如果要加，单引号''、双引号""表示字符串内容会被 转义、不转义
 
-### 数据类型
+## 数据类型
 
 - 字面量：单个的、不可再分的值。date、boolean、string、number、null
 
@@ -54,7 +54,7 @@ k:
  - v3
 ```
 
-### 实例
+## 实例
 
 ```java
 @Data
@@ -108,7 +108,7 @@ person:
     health: [{name: mario,weight: 47}]
 ```
 
-## 21、配置文件-自定义类绑定的配置提示
+# 自定义类绑定的配置提示
 
 > You can easily generate your own configuration metadata file from items annotated with `@ConfigurationProperties` by using the `spring-boot-configuration-processor` jar. The jar includes a Java annotation processor which is invoked as your project is compiled.——[link](https://docs.spring.io/spring-boot/docs/2.4.2/reference/htmlsingle/#configuration-metadata-annotation-processor)
 
