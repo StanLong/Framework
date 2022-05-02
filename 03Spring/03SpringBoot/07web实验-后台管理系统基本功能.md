@@ -1,6 +1,8 @@
-## 44、web实验-后台管理系统基本功能
+# 后台管理系统基本功能
 
-### 项目创建
+静态资源地址： Framework\03Spring\03SpringBoot\笔记\resources.rar
+
+## 项目创建
 
 使用IDEA的Spring Initializr。
 
@@ -9,14 +11,85 @@
 - devtools、
 - lombok
 
-### 登陆页面
+或者直接在pom.xml引入jar包
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
+  <artifactId>SpringBoot</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.3.5.RELEASE</version>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!--配置自定义的类和配置文件绑定的提示功能-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <!--thymeleaf-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+
+  </dependencies>
+
+
+  <build>
+    <plugins>
+      <!-- 下面插件作用是工程打包时，不将spring-boot-configuration-processor打进包内，让其只在编码的时候有用 -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-configuration-processor</artifactId>
+            </exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
+```
+
+##  登陆页面
 
 - `/static` 放置 css，js等静态资源
 
 - `/templates/login.html` 登录页
 
 ```html
-<html lang="en" xmlns:th="http://www.thymeleaf.org"><!-- 要加这玩意thymeleaf才能用 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><!-- 要加这个标签thymeleaf才能用 -->
 
 <form class="form-signin" action="index.html" method="post" th:action="@{/login}">
 
@@ -45,7 +118,7 @@ thymeleaf内联写法：
 <p>Hello, [[${session.user.name}]]!</p>
 ```
 
-### 登录控制层
+## 登录控制层
 
 ```java
 @Controller
@@ -97,9 +170,7 @@ public class IndexController {
 }
 ```
 
-
-
-### 模型
+## 模型
 
 ```java
 @AllArgsConstructor
