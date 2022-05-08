@@ -24,3 +24,5 @@ SpringBoot笔记： https://www.yuque.com/atguigu/springboot/oovrhy
 maven 仓库： https://mvnrepository.com/search?q=tk.mybatis
 
 SpringBoot 2.4.0 版本web模块默认规则： https://blog.csdn.net/qq_43240702/article/details/111032361
+
+华为机试真题： https://blog.csdn.net/weixin_44219664/category_11699441.html

@@ -1,63 +1,44 @@
 package com.stanlong.leetcode;
 
-import java.util.*;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Scanner;
 
 public class LeetCode {
+    public static void main(String[] args) throws ParseException, IOException {
 
-    public static void main(String[] args) throws Exception {
-        int[] array = {1,3,3,3,2,4,4,4,5};
-        int[] result = countSort(array);
-        System.out.println(Arrays.toString(result));
-    }
+        Scanner scan = new Scanner(System.in);
+        int ret = 0;
+        int n = Integer.parseInt(scan.nextLine());
+        String[] str = new String[n];
 
-    /**
-     * 计数排序
-     * @param array 待排序数组
-     */
-    public static int[] countSort(int array[]){
-        // 1. 获取原数组中最大的值
-        int max = Integer.MIN_VALUE;
-        for(int data : array){
-            max = Math.max(max, data);
+        for(int k = 0; k < n; k++) {
+            str[k] = scan.nextLine();
         }
 
-        // 2. 初始化计数数组
-        // 注意这里计数数组的长度是 max+1, 这样计数数组的最大索引正好是array中的最大值
-        int[] count = new int[max+1];
+        int[][] matrix = new int[n][n];
 
-        // 3. 将原数组的值转化到计数数组中
-        // array 的值 为 count 的索引
-        // array 的值的个数 为 count 的值
-        for(int data : array){
-            count[data]++ ;
+        for(int i = 0; i < n; i++){
+            String[] tmp = str[i].split(",");
+            for(int j = 0; j < n; j++){
+                matrix[i][j] = Integer.valueOf(tmp[j]);
+            }
         }
 
-        // 4. 创建结果数组
-        int[] result = new int[array.length];
-
-        // 结果数组索引
-        int index = 0;
-
-        Map<Integer, Integer> map = new HashMap<>();
-        // 5. 将计数数组中值不为0的索引保存到结果数组中
-        for(int i=0; i< count.length; i++){
-            map.put(i, count[i]);
+        int sum = 0;
+        int[] max_row = new int[n];
+        int row_value = 0;
+        for(int x = 0; x < n; x++){
+            max_row[x] = 0;
+            for(int z = 0; z < n; z ++) {    /*移动位数*/
+                row_value = 0;
+                for (int y = 0; y < n; y++) {
+                    row_value += matrix[x][y] * Math.pow(2, (n - y - 1 + z)%n);
+                }
+                max_row[x] = Math.max(row_value, max_row[x]);
+            }
+            sum += max_row[x];
         }
-
-        for(Integer key : map.keySet()){
-            System.out.println(key + ":" + map.get(key));
-        }
-
-        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(map.entrySet());
-        list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
-        Iterator<Map.Entry<Integer, Integer>> it = list.iterator();
-        while (it.hasNext()){
-            Map.Entry<Integer, Integer> next = it.next();
-            System.out.println(next.getKey());
-        }
-
-
-
-        return result;
+        System.out.println(sum);
     }
 }
