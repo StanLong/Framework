@@ -1,15 +1,12 @@
 package com.stanlong.leetcode;
 
-import java.util.*;
-
 public class LeetCode {
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String[] strs = scanner.nextLine().split(",");
-        Map<Character, Integer> map = new HashMap<>();
-        List<Integer> list = new ArrayList<>();
-
-
-
+        String binaryA = Integer.toBinaryString(3);
+        System.out.println(binaryA);
+        System.out.println(Integer.valueOf(binaryA));
+        String hexA = String.format("%08d", Integer.valueOf(binaryA));
+        System.out.println(hexA);
     }
 }
