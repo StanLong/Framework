@@ -25,11 +25,8 @@ https://blog.csdn.net/weixin_44052055/article/details/124040054
 输入
 10
 [1,1,1,1,-4,1]
-1
-2
 输出
 5
-1
 ```
 
 **说明**
