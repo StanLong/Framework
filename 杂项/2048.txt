@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
 <!-- saved from url=(0014)about:internet -->
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>二零四八导航</title>
 
@@ -53,4 +53,4 @@ A:active {
 警告：本網站為限制級網站，已依台灣網站內容分級規定處理。僅對年滿18周歲或以上的海外華人開放，未滿18周歲或當地國家不允許謝絕瀏覽。
 
 
-</div></body></html>
+</div></body></html>椿織さとみ
