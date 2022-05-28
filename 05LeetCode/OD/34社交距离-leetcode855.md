@@ -66,17 +66,17 @@ public class LeetCode {
         for (int i = 0; i < seatOrLeave.length; i++) {
             int op = seatOrLeave[i];
             if (op > 0) {
-                if (seatedNums.size() == 0) {  // 如果是第一个坐
-                    if (i == seatOrLeave.length - 1) {  // 如果只有一个位置
-                        return 0;
+                if (seatedNums.size() == 0) {  // 如果还没有人进来，坐位都是空的
+                    if (i == seatOrLeave.length - 1) {  // 如果只有一个人进来， 那这个人坐到坐位号为0的位置
+                        return 0; // 返回第一个人的坐位号
                     }
-                    seatedNums.add(0);
-                } else if (seatedNums.size() == 1) {  // 第二个人进来，坐在最右边
-                    seatedNums.add(seatNum - 1);
+                    seatedNums.add(0); // 第一个人进来时他坐到坐位号为0的位置
+                } else if (seatedNums.size() == 1) {  // 第二个人进来
+                    seatedNums.add(seatNum - 1); // 记录第二个人的坐位号，他坐在最右边
                     if (i == seatOrLeave.length - 1) {  // 如果只有两个位置
-                        return seatNum - 1;
+                        return seatNum - 1; // 返回第二个人的坐位号
                     }
-                } else if (seatedNums.size() > 1 && seatedNums.size() < seatNum) { // 坐到中间的位置
+                } else if (seatedNums.size() < seatNum) { // 继续有人进来且坐位没坐满，则这个人坐到中间的位置
                     int[] ints = new int[seatedNums.size()];
                     int count = 0;
                     for (Integer seatedNum : seatedNums) {  // 将已经坐过的位置存入到数组中
