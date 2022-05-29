@@ -1,30 +1,24 @@
 package com.stanlong.leetcode;
 
-import java.io.BufferedInputStream;
-import java.util.Scanner;
+import java.util.*;
 
 public class LeetCode {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(new BufferedInputStream(System.in));
-        int n = scanner.nextInt();
-        int[] nums = new int[n];
-        for(int i=0; i< nums.length; i++){
-            nums[i] = scanner.nextInt();
+        Scanner scanner = new Scanner(System.in);
+        String[] str = scanner.nextLine().split(",");
+        Map<String, Integer> map = new HashMap<>();
+        for(String c : str){
+            map.put(c, map.getOrDefault(c, 0)+1);
         }
-
-        int sum = 0;
-        int left = 0;
-        int right = 1;
-        while (right < n){
-            if(nums[right]+nums[left]<100){
-                sum = 100-(nums[left] + nums[right]);
-            }
-            left++;
-            right++;
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+        list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
+        StringBuilder sb = new StringBuilder();
+        for(Map.Entry<String, Integer> entry: list){
+            sb.append(entry.getKey());
+            sb.append(",");
         }
-        System.out.println(sum);
-
+        System.out.println(sb.toString().replaceAll(",$", ""));
 
     }
 }
