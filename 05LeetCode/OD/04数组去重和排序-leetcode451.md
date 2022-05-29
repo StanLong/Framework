@@ -1,41 +1,12 @@
-# 根据字符出现频率排序
+# 数组去重的排序
 
-给定一个字符串 s ，根据字符出现的 频率 对其进行 降序排序 。一个字符出现的 频率 是它出现在字符串中的次数。
-
-返回 已排序的字符串 。如果有多个答案，返回其中任何一个。
+给定一个乱序数组，数组大小不超过100。 删除所有重复元素，使得每个元素只出现一次，并且按照出现次数由高到低排序。 相同出现次数 按照第一次出现的顺序进行先后排序要求稳定）
 
 **示例 1:**
 
 ```
-输入: s = "tree"
-输出: "eert"
-解释: 'e'出现两次，'r'和't'都只出现一次。
-因此'e'必须出现在'r'和't'之前。此外，"eetr"也是一个有效的答案。
-```
-
-**示例 2:**
-
-```java
-输入: s = "cccaaa"
-输出: "cccaaa"
-解释: 'c'和'a'都出现三次。此外，"aaaccc"也是有效的答案。
-注意"cacaca"是不正确的，因为相同的字母必须放在一起。
-```
-
-**示例 3:**
-
-```java
-输入: s = "Aabb"
-输出: "bbAa"
-解释: 此外，"bbaA"也是一个有效的答案，但"Aabb"是不正确的。
-注意'A'和'a'被认为是两种不同的字符。
-```
-
-**提示:**
-
-```java
-1 <= s.length <= 5 * 105
-s 由大小写英文字母和数字组成
+输入: 1,3,3,3,2,4,4,4,5
+输出: 3,4,1,2,5
 ```
 
 ```java
@@ -44,34 +15,23 @@ package com.stanlong.leetcode;
 import java.util.*;
 
 public class LeetCode {
+
     public static void main(String[] args) {
-        Solution solution = new Solution();
-        String s = "Aabb";
-        System.out.println(solution.frequencySort(s));
-
-    }
-}
-
-class Solution {
-    public String frequencySort(String s){
-        char[] chars = s.toCharArray();
-        Map<Character, Integer> map = new HashMap<>();
-        for(int i=0; i< chars.length; i++){
-            map.put(chars[i], map.getOrDefault(chars[i], 0)+1);
+        Scanner scanner = new Scanner(System.in);
+        String[] str = scanner.nextLine().split(",");
+        Map<String, Integer> map = new HashMap<>();
+        for(String c : str){
+            map.put(c, map.getOrDefault(c, 0)+1);
         }
-        List<Map.Entry<Character, Integer>> list = new ArrayList<>(map.entrySet());
-        Collections.sort(list, (o1, o2) -> {
-            return o2.getValue().compareTo(o1.getValue());
-        });
-        Iterator<Map.Entry<Character, Integer>> it = list.iterator();
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+        list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
         StringBuilder sb = new StringBuilder();
-        while (it.hasNext()){
-            Map.Entry<Character, Integer> entry = it.next();
-            for(int i=0; i<entry.getValue(); i++){
-                sb.append(entry.getKey());
-            }
+        for(Map.Entry<String, Integer> entry: list){
+            sb.append(entry.getKey());
+            sb.append(",");
         }
-        return sb.toString();
+        System.out.println(sb.toString().replaceAll(",$", ""));
+
     }
 }
 ```
