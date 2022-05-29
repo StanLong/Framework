@@ -28,40 +28,29 @@
 package com.stanlong.leetcode;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 public class LeetCode {
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        int[] nums = {3,30,34,5,9};
-        String result = solution.largestNumber(nums);
-        System.out.println(result);
-    }
-}
 
-class Solution {
-    public String largestNumber(int[] nums) {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String[] strs = scanner.nextLine().split(",");
         List<String> list = new ArrayList<>();
-        for(int num : nums){
-            list.add(num + "");
+        for(String str : strs){
+            list.add(str);
         }
-        list.sort(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                String str1 = o1 + o2;
-                String str2 = o2 + o1;
-                return str2.compareTo(str1);
-            }
+        list.sort((o1, o2) -> {
+            String str1 = o1+o2;
+            String str2 = o2+o1;
+            return str2.compareTo(str1);
         });
+
         StringBuilder sb = new StringBuilder();
-        for(String data : list){
-            sb.append(data);
+        for(String str : list){
+            sb.append(str);
         }
-        if(sb.charAt(0) == '0'){
-            return "0";
-        }
-        return sb.toString();
+        System.out.println(sb.toString());
     }
 }
 ```
