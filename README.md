@@ -33,4 +33,8 @@ SpringBoot 2.4.0 版本web模块默认规则： https://blog.csdn.net/qq_4324070
 
 华为OD面试流程： https://blog.csdn.net/weixin_42232622/article/details/124744613?spm=1001.2101.3001.6650.8&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-8-124744613-blog-119781052.pc_relevant_antiscanv4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-8-124744613-blog-119781052.pc_relevant_antiscanv4&utm_relevant_index=13
 
-OD参考答案：https://github.com/chamsonxie/answerBook/tree/8e769816ac20b69714389861c8c5defbbcdc2cdd， 关注 https://github.com/chamsonxie
+OD参考答案：https://github.com/chamsonxie/answerBook/tree/8e769816ac20b69714389861c8c5defbbcdc2cdd
+
+ 关注 https://github.com/chamsonxie
+
+华为机试真题： https://www.online1987.com/
