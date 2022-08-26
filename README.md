@@ -1,6 +1,8 @@
 # Framework
 每一个项目都是比较散的知识
 
+清华大学开源镜像下载站 https://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/
+
 数据结构与算法笔记： https://docs-lemon.view6view.club/#/src/study/2
 
 数据结构可视化网站：https://visualgo.net/zh/bst?slide=3-6
@@ -15,24 +17,12 @@ Python刷题： http://www.pythontip.com/coding/code_oj_case/62
 
 Spring课程地址： https://www.bilibili.com/video/BV1nx411g7ja?p=1
 
-CSDN: [小朱小朱绝不服输](https://blog.csdn.net/weixin_44052055)
-
 Java 进制转换： https://www.cnblogs.com/jingzh/p/15168962.html
 
-SpringBoot笔记： https://www.yuque.com/atguigu/springboot/oovrhy
-
 maven 仓库： https://mvnrepository.com/search?q=tk.mybatis
-
-SpringBoot 2.4.0 版本web模块默认规则： https://blog.csdn.net/qq_43240702/article/details/111032361
-
-华为机试真题（需付费）： https://blog.csdn.net/weixin_44219664/category_11699441.html
 
 牛客网华为模拟面试： https://ac.nowcoder.com/interview/ai/cover?companyTagId=239
 
 华为OD面试流程： https://blog.csdn.net/weixin_42232622/article/details/124744613?spm=1001.2101.3001.6650.8&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-8-124744613-blog-119781052.pc_relevant_antiscanv4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-8-124744613-blog-119781052.pc_relevant_antiscanv4&utm_relevant_index=13
-
-OD参考答案：https://github.com/chamsonxie/answerBook/tree/8e769816ac20b69714389861c8c5defbbcdc2cdd
-
- 关注 https://github.com/chamsonxie
 
 华为机试真题： https://www.online1987.com/
