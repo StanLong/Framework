@@ -26,3 +26,6 @@ maven 仓库： https://mvnrepository.com/search?q=tk.mybatis
 华为OD面试流程： https://blog.csdn.net/weixin_42232622/article/details/124744613?spm=1001.2101.3001.6650.8&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-8-124744613-blog-119781052.pc_relevant_antiscanv4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-8-124744613-blog-119781052.pc_relevant_antiscanv4&utm_relevant_index=13
 
 华为机试真题： https://www.online1987.com/
+
+小调网  https://m.xiaopian.com/
+
