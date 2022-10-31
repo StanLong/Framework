@@ -29,4 +29,4 @@ maven 仓库： https://mvnrepository.com/search?q=tk.mybatis
 
 小调网  https://m.xiaopian.com/
 
-Raid 配置与管理  https://www.kmdn.com/news/238.html
+Raid 盘管理与配置  https://www.kmdn.com/news/238.html
