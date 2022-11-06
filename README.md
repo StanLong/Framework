@@ -30,3 +30,7 @@ maven 仓库： https://mvnrepository.com/search?q=tk.mybatis
 小调网  https://m.xiaopian.com/
 
 Raid 盘管理与配置  https://www.kmdn.com/news/238.html
+
+浪潮服务器硬盘报错 PDMissing 的解决方法： http://t.zoukankan.com/fusheng11711-p-10902363.html
+
+浪潮服务器硬盘检查  https://code84.com/171452.html
