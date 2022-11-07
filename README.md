@@ -34,3 +34,5 @@ Raid 盘管理与配置  https://www.kmdn.com/news/238.html
 浪潮服务器硬盘检查  https://code84.com/171452.html
 
 nodejs 所有历史版本 https://nodejs.org/dist/
+
+idea 激活  http://www.itmind.net/16336.html
