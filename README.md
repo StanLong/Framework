@@ -42,3 +42,7 @@ idea 激活  http://www.itmind.net/16336.html
 win10安装解压版mysql详细教程 
 
 https://blog.csdn.net/qq_44697728/article/details/114269245?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-114269245-blog-126574021.pc_relevant_3mothn_strategy_recovery&spm=1001.2101.3001.4242.1&utm_relevant_index=3
+
+
+
+rpm 包下载站：  https://rpmfind.net/linux/rpm2html/search.php?query=nagiosxi&submit=Search+...&system=&arch=
