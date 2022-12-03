@@ -46,3 +46,7 @@ https://blog.csdn.net/qq_44697728/article/details/114269245?utm_medium=distribut
 
 
 rpm 包下载站：  https://rpmfind.net/linux/rpm2html/search.php?query=nagiosxi&submit=Search+...&system=&arch=
+
+
+
+腌肉：盐、胡椒粉、生抽、食用油、玉米淀粉、料酒
