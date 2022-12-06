@@ -50,3 +50,10 @@ rpm 包下载站：  https://rpmfind.net/linux/rpm2html/search.php?query=nagiosx
 
 
 腌肉：盐、胡椒粉、生抽、食用油、玉米淀粉、料酒
+
+
+
+json 文件对比工具		https://jsoncompare.org/   
+
+json 格式化校验工具		http://www.ab173.com/json/ 
+
