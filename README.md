@@ -57,3 +57,8 @@ json 文件对比工具		https://jsoncompare.org/
 
 json 格式化校验工具		http://www.ab173.com/json/ 
 
+
+
+浪潮服务器【磁盘阵列】故障修复 (some configured disks have been removed)
+
+https://blog.csdn.net/weixin_48609917/article/details/119050404
