@@ -62,3 +62,18 @@ json 格式化校验工具		http://www.ab173.com/json/
 浪潮服务器【磁盘阵列】故障修复 (some configured disks have been removed)
 
 https://blog.csdn.net/weixin_48609917/article/details/119050404
+
+
+
+centos 6.7 系统光盘目标结构
+
+https://blog.csdn.net/cx55887/article/details/82843466
+
+
+
+
+
+
+
+
+
