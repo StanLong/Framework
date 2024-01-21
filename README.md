@@ -71,6 +71,10 @@ https://blog.csdn.net/cx55887/article/details/82843466
 
 
 
+GitHub打不开的解决方案（超简单）
+
+https://blog.csdn.net/weixin_43804496/article/details/131475204?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-131475204-blog-133199936.235%5Ev40%5Epc_relevant_3m_sort_dl_base1&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-131475204-blog-133199936.235%5Ev40%5Epc_relevant_3m_sort_dl_base1&utm_relevant_index=1
+
 
 
 
