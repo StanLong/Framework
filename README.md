@@ -83,3 +83,7 @@ https://blog.csdn.net/weixin_43804496/article/details/131475204?spm=1001.2101.30
 
 centos 历史版本镜像下载站    http://mirror.nsc.liu.se/centos-store/   
 
+人工智能做表格 https://chatexcel.com/onlinesheet
+
+系统库： https://www.xitongku.com/
+
