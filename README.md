@@ -87,3 +87,6 @@ centos 历史版本镜像下载站    http://mirror.nsc.liu.se/centos-store/
 
 系统库： https://www.xitongku.com/
 
+
+
+解决github打不开的问题： https://www.cnblogs.com/yibeimingyue/p/16406985.html
