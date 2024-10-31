@@ -96,3 +96,7 @@ yaml 和 json 数据格式转换 https://www.bairesdev.com/tools/json2yaml/
 
 
 crontab表达式： https://crontab.guru/
+
+
+
+mavne 历史版本下载站： https://archive.apache.org/dist/maven/maven-3/
