@@ -1,0 +1,5 @@
+在 logback.xml 里配置生成日志的存放路径。
+
+然后在环境上执行 java -jar gmall2020-mock-log-2021-01-22.jar 会生成模拟日志。
+
+日志存放在 logback.xml  配置的路径中。
