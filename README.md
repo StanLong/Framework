@@ -99,4 +99,8 @@ crontab表达式： https://crontab.guru/
 
 
 
-mavne 历史版本下载站： https://archive.apache.org/dist/maven/maven-3/
+mavne 历史版本下载站： https://archive.apache.org/dist/maven/maven-3
+
+
+
+clickhouse 下载站 https://repo.yandex.ru/clickhouse/rpm/lts/x86_64/
