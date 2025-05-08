@@ -105,5 +105,6 @@ mavne 历史版本下载站： https://archive.apache.org/dist/maven/maven-3
 
 clickhouse 下载站 https://repo.yandex.ru/clickhouse/rpm/lts/x86_64/
 
-
 mysql 下载站 https://downloads.mysql.com/archives/community/
+
+dolphinscheduler  下载站  https://dlcdn.apache.org/dolphinscheduler/
