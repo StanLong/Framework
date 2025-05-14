@@ -101,6 +101,8 @@ crontab表达式： https://crontab.guru/
 
 mavne 历史版本下载站： https://archive.apache.org/dist/maven/maven-3
 
+win10多用户远程登录： https://blog.csdn.net/qq_54780911/article/details/123907031
+
 
 
 clickhouse 下载站 https://repo.yandex.ru/clickhouse/rpm/lts/x86_64/
