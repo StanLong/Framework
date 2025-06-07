@@ -110,3 +110,8 @@ clickhouse 下载站 https://repo.yandex.ru/clickhouse/rpm/lts/x86_64/
 mysql 下载站 https://downloads.mysql.com/archives/community/
 
 dolphinscheduler  下载站  https://dlcdn.apache.org/dolphinscheduler/
+
+
+
+gcc 升级 https://blog.csdn.net/weixin_43354152/article/details/129247408
+
