@@ -1,0 +1,17 @@
+chat2db
+
+docker-compose.yml 
+
+```yaml
+version: '3'
+services:
+  chat2db:
+    image: chat2db/chat2db:latest
+    container_name: chat2db-latest
+    volumes:
+      - ~/.chat2db-docker:/root/.chat2db
+    ports:
+      - "10824:10824"
+    restart: unless-stopped
+```
+
