@@ -27,3 +27,34 @@ volumes:
   ollama_data:
 ```
 
+ollama 模型测试
+
+```python
+pip install ollama
+------------------------------------------------------------------------------------
+
+import ollama
+ 
+ollama.api_base = 'http://192.168.145.15:11434'
+question = input("question：")
+ 
+response = ollama.chat(model='qwen3:4b', messages=[
+    {
+        'role': 'system',
+        'content': 'gogo'
+    },
+    {
+        'role': 'user',
+        'content': question
+    }
+])
+a = response['message']['content']
+print(a)
+
+------------------------------------------------------------------------------------
+
+[root@node05 opt]# python3.9 ollama_test.py
+question：1+1=?
+1 + 1 = 2
+```
+
