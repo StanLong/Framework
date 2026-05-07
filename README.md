@@ -111,6 +111,10 @@ mysql 下载站 https://downloads.mysql.com/archives/community/
 
 dolphinscheduler  下载站  https://dlcdn.apache.org/dolphinscheduler/
 
+python 下载站  https://www.python.org/ftp/python/
+
+docker 下载站 https://download.docker.com/linux/static/stable/x86_64/
+
 
 
 gcc 升级 https://blog.csdn.net/weixin_43354152/article/details/129247408
@@ -119,3 +123,6 @@ gcc 升级 https://blog.csdn.net/weixin_43354152/article/details/129247408
 
 格式转换： https://www.alltoall.net
 
+
+
+免费  viso 在线编辑  https://products.aspose.app/diagram/zh-cn/editor
